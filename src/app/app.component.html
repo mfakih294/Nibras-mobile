@@ -10,8 +10,8 @@
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">            
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon [name]="p.icon"></ion-icon>
-              <ion-label id="menuItem{{p.type}}">
+              <ion-icon [name]="p.icon" class="{{p.type}}"></ion-icon>
+              <ion-label id="menuItem{{p.type}}"  style="padding: 7px 3px 2px 0px;" class="{{p.type}}">
                 {{p.title}}
               </ion-label>
             </ion-item>

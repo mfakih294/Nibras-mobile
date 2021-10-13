@@ -36,21 +36,3 @@
   -->
 </ion-content>
 
-<ion-footer>
-  
-    <!-- <ion-title>Footer</ion-title> -->
-<hr/>
-    <form (ngSubmit)="savek()">
-            
-      <ion-input name="nkinput"  autofocus="true" color="light" rows="3"
-       style="display: inline-block; direction: rtl; text-align: right;
-        border: 1px lightgrey; background: lightblue"  [(ngModel)]="nk"
-      placeholder="Enter note..."  type="text" id="nkinput"></ion-input>  
-      <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
-    </form>
-   
-    <div id="nklog" style='overflow: auto; direction: rtl; text-align: right; '>
-  </div> 
-  
- 
-</ion-footer>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AlertController } from '@ionic/angular';
  import { map } from 'rxjs/operators';
  import { Storage } from '@ionic/storage';
@@ -12,25 +13,34 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 //import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 // import { version } from '../../../package.json';
 
+ import { ViewEncapsulation, Input, ViewChild } from '@angular/core';
+ //import {  IonTextArea } from '@ionic/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
+  // encapsulation: ViewEncapsulation.None
 })
 export class HomePage {
+
+  // @ViewChild('nkinput',{  static: false }) nkinput:IonInput;
 
   ipA = '192.168.0.11:1441/nibras';
   //ipF;
 
   nk;
+  nkt;
+  nkd;
+  nktype = 'n';
   ipTemp;
   
   nklog = '';
+  nklogt = '';
   isOffline = true;
   tosyncText;
   // public version: string = version;
-
+  
   //PreviewAnyFile: any;
 
   loading: any;
@@ -46,11 +56,35 @@ export class HomePage {
 
     // this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err =>
       // console.log('Directory doesnt exist'));
-
+      //const textarea = ref(IonTextarea);
       
   
     this.storage.get('nklog').then(val => {
       this.nklog = val
+    });
+
+    this.storage.get('nk').then(val => {
+      this.nk = val
+    });
+
+    this.storage.get('nkt').then(val => {
+      this.nkt = val
+    });
+
+
+    this.storage.get('nkd').then(val => {
+      this.nkd = val
+    });
+
+
+ this.storage.get('nktype').then(val => {
+  if (!val || val == 'null' || val == null){
+      this.nktype = 'n'
+  }
+  else {
+  this.nktype = val
+  this.storage.set('nktype', 'n')  
+  }
     });
 
     // this.storage.get('ipF').then((val) => {
@@ -77,7 +111,7 @@ this.syncData();
      
    // this.syncAll();
     }).catch(()=>{
-      console.log('===================here1111 0: error catch' )
+      console.log('===================error catch' )
       this.ipA = '192.168.0.11:1441/nibras'
       this.storage.set('ipA', '192.168.0.11:1441/nibras')
     });
@@ -167,6 +201,7 @@ async clearSync(){
           this.storage.set('tosyncText', '')
   this.tosyncText = ''
   this.storage.set('nklog', '')
+  this.storage.set('nklogt', '')
   this.nklog = ''
   document.getElementById('logAreaNotes').innerHTML  = 'All has been cleared.';
 
@@ -226,32 +261,87 @@ saveIp2(){
 
 savek(){
 
+  //document.getElementById('nkinput').focus();
+  
+
   this.storage.get('nklog').then(val => {
-    if (!this.nk || this.nk == null || this.nk == '' || this.nk == ' '){
+    if (!this.nk && !this.nkt){
     document.getElementById('logArea').innerHTML = 'No text to append';
    // console.log('new:' + this.nk);
     }
     else {
+      let current_datetime
+      if (this.nkd)
+     current_datetime = new Date(this.nkd)
+    else
+     current_datetime = new Date()
 
-      
-    let current_datetime = new Date()
-    this.nklog = 'a n p2 d- (' +
-      current_datetime.getDate() + "." + (current_datetime.getMonth() + 1) + "." + 
-      current_datetime.getFullYear() + '_' + 
-      current_datetime.getHours() + "" + current_datetime.getMinutes() +
-      ' -- :: '  + this.nk + '\n\n\n'    
+let date =  
+current_datetime.getDate().toString().padStart(2, '0') + "." + (current_datetime.getMonth() + 1).toString().padStart(2, '0')  + "." + 
+current_datetime.getFullYear() + '_' + 
+current_datetime.getHours().toString().padStart(2, '0') + "" + current_datetime.getMinutes().toString().padStart(2, '0')
+
+    this.nklog = 'A ' + this.nktype + ' p2 d- (' + date +
+      ' -- ' + (this.nkt ? this.nkt : 'Untitled') + ' :: \n'  + (this.nk != null ? this.nk : '') + '\n***\n'    
     + val 
     this.storage.set('nklog', this.nklog)
     //document.getElementById('nklog').innerHTML =  this.nklog;
     //document.getElementById('nk').nodeValue('')
-    document.getElementById('nkinput').focus()
+    
 
     this.nk = ''
-    }
-  }) 
-  document.getElementById('nkinput').focus();
+    this.nkt = ''
+    this.nkd = ''
+
+    this.storage.get('nk').then(val => {      
+      this.storage.set('nk', '')  
+    })
   
+    this.storage.get('nktype').then(val => {      
+      this.storage.set('nktype', this.nktype)  
+    })
+    this.storage.get('nkt').then(val => {          
+      this.storage.set('nkt', '')    
+    })
+    
+    this.storage.get('nkd').then(val => {          
+      this.storage.set('nkd', '')    
+    })
+
+    }
+    
+  })
+  //document.getElementById('nkinput').setFocus()
+  //setTimeout(() => { document.getElementById('nkinput').focus(); }, 500); 
+  //this.nkinput.setFocus();  
 }
+
+savecopy(){
+
+  //document.getElementById('nkinput').focus();
+  
+
+  this.storage.get('nk').then(val => {      
+    this.storage.set('nk', this.nk)  
+  })
+
+  this.storage.get('nktype').then(val => {      
+    this.storage.set('nktype', this.nktype)  
+  })
+  this.storage.get('nkt').then(val => {        
+    this.storage.set('nkt', this.nkt)    
+  
+  })
+
+  this.storage.get('nkd').then(val => {        
+    this.storage.set('nkd', this.nkd)    
+  
+  })
+
+  
+ 
+}
+
 
 syncDone(){
   this.storage.get('ipA').then(val => {
@@ -314,9 +404,9 @@ syncWritings()
    
       this.http.post(link, postData, httpOptions).subscribe(response => {          
       document.getElementById('logAreaNotes').innerHTML = response['result']
-    //  this.storage.set('nklog', '')
-    //  this.nklog = ''
-    //  this.syncData();
+     this.storage.set('nklog', '')
+     this.nklog = ''
+     this.syncData();
       },
       err => {    
        document.getElementById('logAreaNotes').innerHTML = 'Not synced'// + err.message
@@ -420,7 +510,9 @@ syncData()
   let t = type;
 this.storage.set('mytext' + t, response['data']);
 // document.getElementById('menuItem' + t).innerHTML =   label + ' (' +  response['data'].length + ')'
-document.getElementById('menuItem' + t).innerHTML =   ' ' +  response['data'].length + ''
+document.getElementById('menuItem' + t).innerHTML = 
+'&nbsp' + response['data'].length
+//  type + '<sup>' + response['data'].length + '</sup>'
 
   // Schedule delayed notification
   
@@ -452,7 +544,9 @@ document.getElementById('menuItem' + t).innerHTML =   ' ' +  response['data'].le
   
   this.storage.get('mytext' + type).then((val) => {
     // if (val.length > 0){
-    document.getElementById('menuItem' + type).innerHTML =   label + ' (' +  val.length + ')'
+    document.getElementById('menuItem' + type).innerHTML = 
+    '&nbsp' + val.length
+    //  type + '<sup>' +  val.length + '</sup>'
     //  };
     });
 

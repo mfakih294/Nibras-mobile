@@ -12,9 +12,30 @@ import { HttpClient} from '@angular/common/http';
 })
 export class KPage implements OnInit {
 items = ''
-ipA
 ipL
 message = ''
+
+ipA = '192.168.0.11:1441/nibras';
+//ipF;
+
+nk;
+nkt;
+nkd;
+nktype = 'n';
+ipTemp;
+
+nklog = '';
+nklogt = '';
+isOffline = true;
+tosyncText;
+// public version: string = version;
+
+//PreviewAnyFile: any;
+
+loading: any;
+
+
+
   constructor(private http: HttpClient, private storage: Storage){
 
     this.storage.get('mytextJ').then((val) => {
@@ -25,4 +46,7 @@ message = ''
   ngOnInit() {
   }
 
+
+savek(){
+}
 }

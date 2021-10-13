@@ -21,6 +21,19 @@ export class AppComponent {
     },
 
     // {
+    //   title: 'Search',
+    //   type: 'K',
+    //   url: '/k',
+    //   icon: 'search'
+    // },
+
+{
+      title: 'Plans',
+      type: 'P',
+      url: '/p',
+      icon: 'alarm'
+    },
+    // {
     //   title: 'Todo',
     //   type: 'Todo',
     //   url: '/todo',
@@ -38,74 +51,67 @@ export class AppComponent {
     //   url: '/cal',
     //   icon: 'checkmark'
     // },
-	  {
-      title: 'Plans',
-      type: 'P',
-      url: '/p',
-      icon: 'alarm'
-    },
-    {
-      title: 'Journal',
-      type: 'J',
-      url: '/k',
-      icon: 'clock'
-    },
- 
+	  
+  
 	  {
       title: 'Goals',
       type: 'G',
       url: '/g',
       icon: 'flag'
     },
-// {
-//       title: 'N piles',
-//       type: 'K',
-//       url: '/k',
-//       icon: 'attach'
-//     },
 
-
-    {
-      title: 'Notes',
-      type: 'N',
-      url: '/n',
-      icon: 'card'
+      {
+      title: 'Journal',
+      type: 'J',
+      url: '/k',
+      icon: 'clock'
     },
+ 
 
 
-	  {
-      title: 'Writings',
-      type: 'W',
-      url: '/w',
-      icon: 'clipboard'
-    },
-        {
-      title: 'Excerpts',
-      type: 'E',
-      url: '/e',
-      icon: 'bookmark'
-    },
-	 
 	{
       title: 'Resources',
       type: 'R',
       url: '/r',
       icon: 'book'
-    } ,
-	{
-      title: 'Articles',
-      type: 'Art',
-      url: '/art',
-      icon: 'bookmarks'
-    } 
-	,	 
-	{
-      title: 'News',
-      type: 'Nws',
-      url: '/nws',
-      icon: 'logo-rss'
-    } 
+    },
+    {
+  title: 'Excerpts',
+  type: 'E',
+  url: '/e',
+  icon: 'bookmark'
+}
+
+  //    ,
+	// {
+  //     title: 'Articles',
+  //     type: 'Art',
+  //     url: '/art',
+  //     icon: 'bookmarks'
+  //   } 
+	// ,	 
+	// {
+  //     title: 'News',
+  //     type: 'Nws',
+  //     url: '/nws',
+  //     icon: 'logo-rss'
+  //   } 
 	
+
+  ,
+  {
+    title: 'Writings',
+    type: 'W',
+    url: '/w',
+    icon: 'clipboard'
+  },
+  {
+    title: 'Notes',
+    type: 'N',
+    url: '/n',
+    icon: 'clipboard'
+  }
+
   ];
 
   constructor(

@@ -1,52 +1,48 @@
 <!-- <ion-button >Open Modal</ion-button> -->
 <div *ngFor="let item of items"
-    style="padding: 2px; width: 99%; max-width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
+    style="padding: 0px; width: 99%; max-width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
     <!-- <tr>
     <td colspan="3">tr> -->
     <!-- <td colspan="3"> -->
-    <ion-card style="direction: rtl; text-align: right" button="true">
+    <ion-card class="{{item.language}}"  button="true">
         <ion-card-header >
-            <ion-card-subtitle style="direction: ltr; text-align: left; font-size: smaller;">
+            <ion-card-subtitle class="{{item.language}}" style="font-size: smaller;">
                 <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}"                                
                 checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"                
                  (ionChange)="markDone(item)" ></ion-checkbox>
                 &nbsp;
                 &nbsp;
-                <span class="{{item.type}}" style="padding: 3px; color: white;">
+                <span class="{{item.type}}" style="padding: 2px; color: white;">
                 <b>{{item.type}}</b> 
                 </span>                
                 {{item.id}} &nbsp; <i>{{item.meta}}</i>
             </ion-card-subtitle>
             <ion-card-title class="{{item.language}}"
-             style="font-size: large;">
+            (click)="openModal(item.ecode, item.rtype, item.id, item.title, item.language, item.body, item.files)"
+             style="font-size: 1.2em;">
                 {{item.title}}
             </ion-card-title>
 
         </ion-card-header>
 
         <ion-card-content class="{{item.language}} {{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? 'done2' : ''): ''}}"
-            (click)="openModal(item.ecode, item.rtype, item.id, item.title, item.body, item.files)" style="padding: 3px; margin: 3px; font-size: 1em;">            
-                {{clean(item.body)}}
-            <br />
-            <div class="ion-text-center" dir="ltr" style="padding: 3px;">
+        
+            style="padding: 0 4px 4px 4px; margin: 3px 2px; font-size: 1em;">            
+<div (click)="openModal(item.ecode, item.rtype, item.id, item.title, item.language, item.body, item.files)"
+class="{{item.language}}">
+            {{clean(item.body)}}
+        </div>               
+            <div class="ion-text-center" dir="ltr" style="padding: 0px;">
                 <i>{{item.nbFiles ? item.nbFiles + ' files' : ''}} </i>
             </div>
-
-            <!-- <div *ngIf="item.type == 'R' && item.files" id="{{item.type + '' + item.id}}filesTr"
-            style="column-count:3; column-gap: 5px;  column-rule-style: solid; font-size: small;">
-                
+<div *ngIf="item.type == 'R' && item.files" id="{{item.type + '' + item.id}}filesTr"
+            style="column-count:1; column-gap: 5px;  column-rule-style: solid; font-size: small;">                
                     <span *ngFor="let file of item.files.split('\n')"
                         (click)="openRFile(item.ecode, item.rtype, item.id, file)" 
-                        style="border: gainsboro solid; padding: 2px; margin: 3px; display: inline-block">
-                            =={{item.ecode + '-' + item.rtype + '-' + item.id}}==
-                          {{file?.split('.')[0]}}
-                       
-                    </span>
-               
-            </div> -->
-
-
-
+                        style="border: gainsboro solid; padding: 2px; margin: 3px; display: inline-block">                       
+                          {{file?.split('.')[0]}}                    
+                    </span>             
+            </div>
         </ion-card-content>
     </ion-card>
 

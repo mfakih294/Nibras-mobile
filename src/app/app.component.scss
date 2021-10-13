@@ -3,20 +3,21 @@
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
-   
 }
 
 .menu.menu-left{
-	width: calc(10% - 70px) !important;
+	width: calc(15% - 70px) !important;
 }
 .menu-open .menu-content{
-	transform: translate3d(calc(10% - 70px), 0px, 0px) !important;
+	transform: translate3d(calc(15% - 70px), 0px, 0px) !important;
 }
 
 .md {
 ion-menu{
-    max-width: 10% !important;
-    width: 10% !important;
+    max-width: 16% !important;
+    width: 16% !important;
+    margin: 0px;
+    padding: 0px;;
   }
 
 }
@@ -45,51 +46,51 @@ table td {
 
 
 .Todo{
-    background: darkblue;
+    color: darkblue;
 }
 
 
 
-.K{
-    background: darkblue;
+.J{
+    color: rgb(224, 167, 9);
 }
 
 
 
-.Key{
-    background: darkblue;
+.Art{
+    color: rgb(54, 138, 65);
 }
 
-.Cal {
-    background: darkblue;
+.Nws {
+    color: rgb(62, 87, 39);
 }
 
 
 .P{
-    background: darkblue;
+    color: darkblue;
 }
 
 .G{
-    background: darkblue;
+    color: darkblue;
 }
 
 .G{
-    background: darkgreen;
+    color: darkgreen;
 }
 
 .T{
-    background: lightgreen;
+    color: rgb(113, 163, 113);
 }
 
 
 .N{
-    background: darkorange;
+    color: rgb(185, 107, 12);
 }
 
 .W{
-    background: LightSalmon;
+    color: rgb(146, 58, 168);
 }
 
 .R{
-    background: DarkSlateBlue;
+    color: DarkSlateBlue;
 }

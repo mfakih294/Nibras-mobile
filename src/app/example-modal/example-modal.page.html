@@ -12,9 +12,9 @@
 
 <ion-content>
 
-  <ion-card direction="rtl">
+  <ion-card class="{{language}}">
     <ion-card-header>
-      <ion-card-subtitle style="direction: rtl; text-align: right">
+      <ion-card-subtitle class="{{language}}">
         <!-- <input type="checkbox" id="{{type + '' + id + 'checkbox'}}" (change)="markDone(type, id)" /> -->
         <span id="copyLog">
         </span>
@@ -26,24 +26,9 @@
 
     </ion-card-header>
 
-    <ion-card-content style="direction: rtl; text-align: justify;">
+    <ion-card-content class="{{language}}">
 
-      <div *ngIf="files">
-        <div style="column-count:1;   column-rule-style: solid; font-size: small;">
-          <span *ngFor="let file of files.split('\n')"
-            style=" padding: 2px; margin: 3px; display: block">
-            <!-- =={{item.ecode + '-' + item.rtype + '-' + item.id}}==  -->
-            <ion-button  (click)="openRFile(ecode, rtype, id, file)" class="ion-outline"
-             outline 
-             style="display: inline-block;">
-            {{file?.split('.')[0]}}
-            </ion-button>
-            
-
-          </span>
-
-        </div>
-      </div>
+     
 
       <div [innerHTML]="contents"></div>
 

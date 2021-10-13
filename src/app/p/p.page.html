@@ -20,13 +20,23 @@
   {{message}}
 </div>
 
+<h2>Older</h2>
+<app-nibras-list [items]="items2m" [expanded]="false"></app-nibras-list>
 
+
+<h2>Yesterday</h2>
+<app-nibras-list [items]="items1m" [expanded]="false"></app-nibras-list>
+
+  <h2>Today</h2>
+<app-nibras-list [items]="items0" [expanded]="false"></app-nibras-list>
+
+<h2>Tomorrow</h2>
+<app-nibras-list [items]="items1" [expanded]="false"></app-nibras-list>
+  
+<h2>Later</h2>
+<app-nibras-list [items]="items2" [expanded]="false"></app-nibras-list>
   
 
-<app-nibras-list [items]="items" [expanded]="true"></app-nibras-list>
-
-  
-  
   </div>
   <!--
     <div *ngIf="selectedItem" padding>

@@ -20,6 +20,7 @@ export class ExampleModalPage implements OnInit {
   files:string;
   ecode:string;
   rtype:string;
+  language:string;
   id:string;
  
 
@@ -41,6 +42,7 @@ export class ExampleModalPage implements OnInit {
     this.files = this.navParams.data.files;
     this.ecode = this.navParams.data.ecode;
     this.rtype = this.navParams.data.rtype;
+    this.language = this.navParams.data.language;
     this.id = this.navParams.data.id;
   }
 

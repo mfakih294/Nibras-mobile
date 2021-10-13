@@ -43,7 +43,7 @@ this.storage.get('tosyncText').then((val) => {
 
 
   //item.ecode, item.rtype, item.id, item.title, item.body, item.files
-  async openModal(ecode, rtype, id, title, contents, files) {
+  async openModal(ecode, rtype, id, title, language, contents, files) {
 /*
     var path 
     if (ecode == 'R')
@@ -93,7 +93,7 @@ this.storage.get('tosyncText').then((val) => {
       componentProps: {
         "ecode": ecode,
         "rtype": rtype,
-        
+        "language": language,        
         "id": id,
         "title": title,
         "contents": contents,

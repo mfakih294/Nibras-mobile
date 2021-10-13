@@ -4,3 +4,13 @@
     -ms-user-select: text;
     user-select: text;
 }
+
+.ar, .Ar .fa { // todo: fix in pkm
+    text-align: justify !important;
+    direction: rtl !important;
+}
+
+.en, .En, .fr {
+    text-align: justify !important;
+    direction: ltr !important;    
+}

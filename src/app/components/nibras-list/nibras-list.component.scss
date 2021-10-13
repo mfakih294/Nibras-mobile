@@ -14,12 +14,12 @@ body {
     color: darkgray;
 }
 
-.ar {
+.ar,.Ar {
     text-align: justify !important;
     direction: rtl !important;
 }
 
-.en {
+.en, .En {
     text-align: justify !important;
     direction: ltr !important;
     font-size: 1em;
@@ -46,12 +46,24 @@ table td {
     line-height: 30px;
 }
 
-.ar {
-    padding: 6px;
+.ar, .Ar {
+    padding: 3px;
     margin: 0px;
     // background: rgb(253, 246, 227) !important;
     color: rgb(43, 52, 55) !important;
     ;
+    font-size: 1em;
+    direction: rtl;
+    text-align: right;
+}
+
+.en, .En {
+    padding: 3px;
+    margin: 0px;
+    // background: rgb(253, 246, 227) !important;
+    color: rgb(43, 52, 55) !important;
+    direction: ltr;
+    text-align: left;
     font-size: 1em;
 }
 
@@ -105,4 +117,9 @@ table td {
 
 .Art {
     background: DarkSlateBlue;
+}
+
+
+.md .hydrated {
+    padding-bottom: 0px !important;
 }

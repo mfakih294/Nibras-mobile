@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Nibras Reader v1.3.1
+      Nibras Reader v1.4.0
       <!-- {{version}} -->
     </ion-title>
   </ion-toolbar>
@@ -53,21 +53,40 @@
     <!--img src="/assets/shapes.svg" alt="" /-->
     <ion-card-header>
 
-      <ion-card-title>Notes
-        <span
-          style="color: darkgray; float: right; font-size: small">{{nklog?.split('::')?.length - 1 == -1 ? '0' :  nklog?.split('::')?.length - 1}}
-          notes</span>
-      </ion-card-title>
+      <!-- <ion-card-title>New
+        
+      </ion-card-title> -->
     </ion-card-header>
-    <ion-card-content [ngStyle]="{ 'white-space': 'pre-wrap' }">
-    
-  
-      <form (ngSubmit)="savek()">
+    <ion-card-content [ngStyle]="{ 'white-space': 'pre-wrap'}">
+      <form (ngSubmit)="savek();">
+        <ion-select name="nktype" [(ngModel)]="nktype" interface="popover"
+        mutiple="false" (value)="nktype"
+        (ionChange)="savecopy()">
+          <ion-select-option value='t'>New task</ion-select-option>
+          <ion-select-option value='g'>New goal</ion-select-option>
+          <ion-select-option value='j'>New journal</ion-select-option>
+          <ion-select-option value='p'>New plan</ion-select-option>
+          <ion-select-option value='n'>New note</ion-select-option>          
+          <ion-select-option value='q'>New payment</ion-select-option>          
+        </ion-select>
 
-        <ion-textarea name="nkinput" autofocus="true" rows="5" autosize
-        color="black"  (ionBlur)="savek()" 
-        style="height: 130px; display: inline-block; direction: rtl; text-align: right; padding: 1px;
-              border: 1px solid darkgrey; background: ghostwhite" placeholder="Enter note..." 
+        <ion-datetime name="nkd" [(ngModel)]="nkd" (ionBlur)="savecopy()" 
+          displayFormat="DD.MMM.YYYY HH:mm" pickerFormat="YYYY MMM DDD HH mm"
+          minuteValues="0,15,30,45"          
+           placeholder="Choose a date"></ion-datetime>
+           <!-- picketOptions="{columns: ['Y', 'M', 'D', 'H', 'm']}" -->
+
+        <ion-input  name="nkt" autofocus="true" rows="5" autosize        
+        color="black" 
+        (ionBlur)="savecopy()"
+        style="font-size: 1.1em; display: inline-block; padding: 1px; text-align: right !important; direction: rtl !important; border: 1px solid darkgrey; background: ghostwhite" placeholder="Enter title..." 
+              type="text" id="nkinputt"
+          [(ngModel)]="nkt"></ion-input>
+
+        <ion-textarea  name="nkinput" autofocus="true" rows="5" autosize
+        (ionBlur)="savecopy()"
+        color="black"  
+        style="height: 120px; font-size: 1.1em; display: inline-block; padding: 1px; text-align: right !important; direction: rtl !important; border: 1px solid darkgrey; background: ghostwhite" placeholder="Enter note..." 
               type="text" id="nkinput"
           [(ngModel)]="nk"></ion-textarea>
 
@@ -75,24 +94,28 @@
         <!-- (click) = "savek();" onclick="document.getElementById('nkinput').focus()">Add</a> -->
 
         <ion-button outline style="text-transform: none; width: 99%;" size="small"
-        onclick="document.getElementById('nkinput').focus()"
-        (click)="savek()">Add</ion-button>        
+        onclick=""
+        (click)="savek();">Add</ion-button>        
       </form>
-      <br />
-
-
-    
-
+ 
+      <div
+          style="color: darkgray; text-align: right; font-size: small">{{nklog?.split('***')?.length - 1 == -1 ? '0' :  nklog?.split('***')?.length - 1}}
+          records</div>
 
       <!-- <div name="nklog" id="nklog" style='overflow: auto; line-height: 20px; direction: rtl; text-align: right; border: 1px solid darkgray'  -->
       <!-- [innerHTML]="nklog"> -->
       <!-- </div> -->
 
       <div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'
-        *ngFor="let line of nklog.split('\n\n\n')">
-        <div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: bold;">{{line?.split('::')[0]}}
+        *ngFor="let line of nklog.split('***')">
+        <div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">
+          {{line?.split('::')[0].split('--')[0]}}
         </div>
-        <div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1em;">
+<div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">
+        {{line?.split('::')[0].split('--')[1]}}
+        </div>
+
+        <div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">
           {{line?.split('::')[1]}}
         </div>
       </div>
@@ -119,11 +142,13 @@
     <ion-card-header>
 
       <ion-card-title>Connect
-        <span style="font-style: italic; font-size: small; float: right; color: darkgray">
-          
-        </span>
         <br/>
+        <span style="font-style: italic; font-size: small; color: darkgray">
+          URL of Nibras:          
+        </span>
+        
 
+        <br/>
         <form (ngSubmit)="saveIp2()">
 
           <ion-input name="nkinput" autofocus="true" 
@@ -163,9 +188,7 @@
 
       <!-- <a  (click) = "refresh()">Check status</a> -->
 
-     
-
-      <!-- Get Nibras Desktop IP from the right of its footer area.  -->
+           <!-- Get Nibras Desktop IP from the right of its footer area.  -->
       <!-- Enter the port if it has been changed from the default (433).  -->
       <!-- App-name is "nibras" by default. -->
 
