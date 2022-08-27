@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content>
+
   <div class="ion-padding"  >
       <!-- style="direction: rtl; text-align: right;" -->
        
@@ -19,6 +20,25 @@
 <div style="font-size: small; background: mintcream; font-style: italic;">
   {{message}}
 </div>
+
+      <div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'
+           *ngFor="let line of newItems.split('***')">
+          <div *ngIf="line.substr(1,4).trim() === 'A p'">
+
+              <div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">
+                  {{line?.split('::')[0].split('--')[0]}}
+              </div>
+              <div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">
+                  {{line?.split('::')[0].split('--')[1]}}
+              </div>
+              <div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">
+                  {{line?.split('::')[1]}}
+              </div>
+          </div>
+
+      </div>
+
+
 
 <h2>Older</h2>
 <app-nibras-list [items]="items2m" [expanded]="false"></app-nibras-list>

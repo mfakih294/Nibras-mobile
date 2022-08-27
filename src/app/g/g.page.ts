@@ -12,7 +12,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GPage implements OnInit {
 items = ''
-ipA
+  newItems = ''
+
+  ipA
 ipL
 message = ''
 
@@ -21,7 +23,13 @@ message = ''
 
     this.storage.get('mytextG').then((val) => {
       this.items = val;
-    }); 
+    });
+
+    this.storage.get('nklog').then(val => {
+      this.newItems = val;
+    });
+
+
 } // end of constructor
 
 

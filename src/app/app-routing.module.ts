@@ -17,6 +17,7 @@ const routes: Routes = [
   },
   { path: 'p', loadChildren: './p/p.module#PPageModule' },
   { path: 'g', loadChildren: './g/g.module#GPageModule' },
+  { path: 'o', loadChildren: './o/o.module#OPageModule' },
   { path: 'r', loadChildren: './r/r.module#RPageModule' },
   { path: 'n', loadChildren: './n/n.module#NPageModule' },
   { path: 't', loadChildren: './t/t.module#TPageModule' },

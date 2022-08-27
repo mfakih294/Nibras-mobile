@@ -1,49 +1,124 @@
 <!-- <ion-button >Open Modal</ion-button> -->
-<div *ngFor="let item of items"
-    style="padding: 0px; width: 99%; max-width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
+
+<!--<div id='logArea' style="font-style: italic; font-size: small; padding: 3px; color: darkgray"></div>-->
+
+<ion-slides pager="true" [options]="slideOptions">
+
+
+<ion-slide *ngFor="let item of items"
+     style="padding: 0px; width: 99%; width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
     <!-- <tr>
     <td colspan="3">tr> -->
     <!-- <td colspan="3"> -->
-    <ion-card class="{{item.language}}"  button="true">
-        <ion-card-header >
-            <ion-card-subtitle class="{{item.language}}" style="font-size: smaller;">
-                <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}"                                
-                checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"                
-                 (ionChange)="markDone(item)" ></ion-checkbox>
-                &nbsp;
-                &nbsp;
-                <span class="{{item.type}}" style="padding: 2px; color: white;">
-                <b>{{item.type}}</b> 
-                </span>                
-                {{item.id}} &nbsp; <i>{{item.meta}}</i>
-            </ion-card-subtitle>
+
+    <ion-card class="{{item.language}}" button="true" id="card{{item.ecode}}{{item.id}}" style="width: 95% !important;">
+        <ion-card-header>
             <ion-card-title class="{{item.language}}"
-            (click)="openModal(item.ecode, item.rtype, item.id, item.title, item.language, item.body, item.files)"
-             style="font-size: 1.2em;">
-                {{item.title}}
+
+                            style="font-size: 1.2em;">
+
+
+                <div class="en"
+                     style="padding: 3px; margin: 1px 3px; font-size: large; background: #f3f8fb; border-radius: 5px;border: 1px solid #e5e5e5; float: left;">
+
+                    <b style="color: black; padding: 3px; margin: 3px 3px; " class="{{item.ecode}}">
+                        {{item.ecode == 'o' ? item.module.toUpperCase() : item.ecode}}
+                        <sup>{{item.ecode == 'o' ? 'o' : ''}}</sup>
+                    </b>
+
+
+                    <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}" style="font-size: small; width: 20px;"
+                                  checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"
+                                  (ionChange)="markDone(item)"></ion-checkbox>
+
+                    <!--{{item.id}} &nbsp; -->
+                    <div style="padding: 2px; font-size: small">
+                        <i>{{item.meta}}</i>
+                    </div>
+                </div>
+                <div class="{{item.language}}"
+                      (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)">
+                {{item.summary}}
+
+                </div>
             </ion-card-title>
+            <ion-card-subtitle class="{{item.language}}" style="font-size: smaller;">
+
+                <!--<ion-button outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                <!--(click)="editModal(item.ecode, item.id, item.files)"-->
+                <!--size="small">-->
+                <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                <!--<ion-label>-->
+                <!--Edit-->
+                <!--</ion-label>-->
+                <!--</ion-button>-->
+
+
+            </ion-card-subtitle>
+
 
         </ion-card-header>
 
-        <ion-card-content class="{{item.language}} {{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? 'done2' : ''): ''}}"
-        
-            style="padding: 0 4px 4px 4px; margin: 3px 2px; font-size: 1em;">            
-<div (click)="openModal(item.ecode, item.rtype, item.id, item.title, item.language, item.body, item.files)"
-class="{{item.language}}">
-            {{clean(item.body)}}
-        </div>               
-            <div class="ion-text-center" dir="ltr" style="padding: 0px;">
-                <i>{{item.nbFiles ? item.nbFiles + ' files' : ''}} </i>
+
+        <ion-card-content
+                class="{{item.language}} {{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? 'done2' : ''): ''}}"
+
+                style="font-size: 1em; padding: 3px 10px 2em 2em;">
+
+
+            <div (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)">
+                <!--{{clean(item.description)}}-->
+                <div [innerHTML]="clean(item.description)"></div>
             </div>
-<div *ngIf="item.type == 'R' && item.files" id="{{item.type + '' + item.id}}filesTr"
-            style="column-count:1; column-gap: 5px;  column-rule-style: solid; font-size: small;">                
-                    <span *ngFor="let file of item.files.split('\n')"
-                        (click)="openRFile(item.ecode, item.rtype, item.id, file)" 
-                        style="border: gainsboro solid; padding: 2px; margin: 3px; display: inline-block">                       
-                          {{file?.split('.')[0]}}                    
-                    </span>             
+
+            <div  id="editLog{{item.ecode + '' + item.id}}" *ngIf="item.ecode == 'o'">
+
+                <ion-button outline style="text-transform: none;" size="small" class="center"
+                            (click)="commitOperationButton(item.id);">Commit
+                </ion-button>
+                <ion-button outline style="text-transform: none;" (click)="deleteRecord(item.ecode, item.id)" fill="clear" >Delete</ion-button>
+
             </div>
+
+
+            <!--<div class="ion-text-center" dir="ltr" style="display: inline-block; padding: 0px;">-->
+            <!--<i>{{item.nbFiles ? item.nbFiles + ' files' : ''}} </i>-->
+            <!--</div>-->
+            <!--<div >-->
+            <!--</div>-->
+
+
+            <!--</div>-->
+
+            <div *ngIf="!item.freshRecord">
+                <div *ngIf="item.filesList" id="{{item.ecode + '' + item.id}}filesTr"
+                     style="width: 99% !important; direction: ltr; text-align: left; columns-count: 3;">
+
+
+                    <ion-button *ngFor="let file of item.filesList.split('\n')"
+                                (click)="openRFile(item.ecode, '', item.id, file.split('|')[0])"
+                                size="small" style="text-transform: none;" fill="clear">
+                        <!--style="border: gainsboro solid; border-radius: 5px; padding: 3px; margin: 4px; display: block"-->
+                        {{file.split('|')[0]}}
+                        <!--{{file?.split('.')[0]}}                    -->
+                    </ion-button>
+
+                    <!--<ion-button *ngFor="let file of item.filesList.split('\n')" outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                    <!--(click)="openRFile(item.ecode, '', item.id, file)" size="small">-->
+                    <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                    <!--<ion-label>-->
+                    <!--{{file}}-->
+                    <!--</ion-label>-->
+                    <!--</ion-button>-->
+
+                </div>
+                </div>
+
+
         </ion-card-content>
     </ion-card>
 
-</div>
+
+</ion-slide>
+
+</ion-slides>

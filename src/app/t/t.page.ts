@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TPage implements OnInit {
 items = ''
+  newItems = ''
 ipA
 ipL
 message = ''
@@ -19,8 +20,15 @@ message = ''
 
     this.storage.get('mytextT').then((val) => {
       this.items = val;
-    }); 
-} // end of constructor
+    });
+
+
+    this.storage.get('nklog').then(val => {
+      this.newItems = val;
+    });
+
+
+  } // end of constructor
 
   ngOnInit() {
   }

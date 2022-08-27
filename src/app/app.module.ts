@@ -11,8 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { File } from '@ionic-native/file/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
- import { FileOpener } from "@ionic-native/file-opener/ngx";
+
+
+import { FileOpener } from "@ionic-native/file-opener/ngx";
 
 // import { PreviewAnyFile } from '@ionic-native/preview-any-file';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
@@ -28,6 +31,7 @@ import { Autostart } from '@ionic-native/autostart/ngx';
 //import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ExampleModalPageModule } from './example-modal/example-modal.module';
 
+import { MultipleDocumentsPicker } from '@awesome-cordova-plugins/multiple-document-picker/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,7 +53,9 @@ import { ExampleModalPageModule } from './example-modal/example-modal.module';
     Autostart,
      File,
      FileOpener,
+      HTTP,
      InAppBrowser,
+      MultipleDocumentsPicker,
     // AndroidPermissions,
      Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

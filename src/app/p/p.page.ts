@@ -19,6 +19,7 @@ items2m = ''
 items1 = ''
 items2 = ''
 items2p = ''
+newItems = ''
 ipA
 ipL
 message = ''
@@ -28,12 +29,17 @@ date = ''
 
     this.storage.get('mytextP').then((val) => {
 
-      this.items2m = val.filter((r)=>{return r.datediff < -2});
+      this.items2m = val.filter((r)=>{return r.datediff <= -2});
       this.items0 = val.filter((r)=>{return r.datediff == 0});
       this.items1m = val.filter((r)=>{return r.datediff == -1});
       this.items1 = val.filter((r)=>{return r.datediff == 1});
-      this.items2 = val.filter((r)=>{return r.datediff > 2});
-    }); 
+      this.items2 = val.filter((r)=>{return r.datediff >= 2});
+    });
+
+    this.storage.get('nklog').then(val => {
+      this.newItems = val;
+    });
+
 } // end of constructor
 
   ngOnInit() {

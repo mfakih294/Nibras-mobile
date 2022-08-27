@@ -1,26 +1,46 @@
 <ion-app>
-  <ion-split-pane id="splitPane" contentId="main" when="xs">
-    <ion-menu type="push" contentId="main" auto-hide="false" >
-      <ion-header>
-        <ion-toolbar>
-          <ion-title></ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">            
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon [name]="p.icon" class="{{p.type}}"></ion-icon>
-              <ion-label id="menuItem{{p.type}}"  style="padding: 7px 3px 2px 0px;" class="{{p.type}}">
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
+  <!--<ion-split-pane id="splitPane" contentId="main" when="xs">-->
     <ion-router-outlet id="main"></ion-router-outlet>
-    
-  </ion-split-pane>
+
+    <!--<ion-menu type="push" contentId="main" auto-hide="false" >-->
+      <!--<ion-header>-->
+        <!--<ion-toolbar>-->
+          <!--<ion-title></ion-title>-->
+        <!--</ion-toolbar>-->
+      <!--</ion-header>-->
+      <!--<ion-content>-->
+        <!--<ion-list>-->
+          <!--<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">-->
+            <!--<ion-item [routerDirection]="'root'" href="/home#{{p.type}}">-->
+              <!--&lt;!&ndash;<ion-icon [name]="p.icon" class="{{p.type}}"></ion-icon>&ndash;&gt;-->
+              <!--<ion-label id="menuItem{{p.type}}"  style="padding: 7px 3px 2px 0px;" class="{{p.type}}">-->
+                <!--{{p.title}}-->
+              <!--</ion-label>-->
+            <!--</ion-item>-->
+          <!--</ion-menu-toggle>-->
+        <!--</ion-list>-->
+      <!--</ion-content>-->
+    <!--</ion-menu>-->
+
+<ion-tabs>
+    <ion-tab-bar slot="bottom" >
+
+      <!--<ion-tab-button href="/home">-->
+        <!--<ion-label class="home">-->
+          <!--*-->
+        <!--</ion-label>-->
+      <!--</ion-tab-button>-->
+
+      <ion-tab-button *ngFor="let p of appPages" href="/home#{{p.type}}">
+    <ion-label class="{{p.type}}">
+    {{p.type}}
+    </ion-label>
+        <ion-badge id="{{p.type}}badge">0</ion-badge>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>
+
+  <!--</ion-split-pane>-->
   
 </ion-app>

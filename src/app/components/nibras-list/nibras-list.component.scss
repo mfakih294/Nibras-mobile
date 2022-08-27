@@ -75,6 +75,10 @@ table td {
     background: darkblue;
 }
 
+.O {
+    background: darkgreen;
+}
+
 .Kee {
     background: darkblue;
 }
@@ -119,7 +123,10 @@ table td {
     background: DarkSlateBlue;
 }
 
-
 .md .hydrated {
-    padding-bottom: 0px !important;
+    //padding-bottom: 0px !important;
+}
+
+.ion-card{
+    margin: 3px 8px !important;
 }

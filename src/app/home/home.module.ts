@@ -4,13 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
+import { ComponentsModule } from '../components/components.module';
+import { NibrasListComponent } from '../components/nibras-list/nibras-list.component';
+
+
 import { HomePage } from './home.page';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
+
     RouterModule.forChild([
       {
         path: '',

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {IonicModule} from '@ionic/angular'
+import { FormsModule } from '@angular/forms';
 
 import { NibrasListComponent } from './nibras-list/nibras-list.component';
 
@@ -8,6 +9,7 @@ import { NibrasListComponent } from './nibras-list/nibras-list.component';
   declarations: [NibrasListComponent],
   imports: [
     CommonModule,
+      FormsModule,
     IonicModule.forRoot()
   ]
   

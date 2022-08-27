@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="khuta.org.nibras.mobile" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Nibras Reader</name>
+<widget id="khuta.org.nibras3.mobile" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Nibras Reader 3</name>
     <description>A mobile companion to Nibras Desktop</description>
     <author email="dev@khuta.org" href="http://khuta.org/">Mohamad Fakih</author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="android-usesCleartextTraffic" value="true" />
+    <preference name="keyboardDisplayRequiresUserAction" value="false" />
     <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

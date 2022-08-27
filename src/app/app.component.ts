@@ -13,19 +13,19 @@ import { Autostart } from '@ionic-native/autostart/ngx';
 })
 export class AppComponent {
   public appPages = [
-    {
-      title: '',
-      type: 'home',
-      url: '/home',
-      icon: 'home'
-    },
-
-    // {
-    //   title: 'Search',
-    //   type: 'K',
-    //   url: '/k',
-    //   icon: 'search'
-    // },
+    //{
+    //  title: 'Home',
+    //  type: 'home',
+    //  url: '/home',
+    //  icon: 'home'
+    //},
+     //
+     //{
+     //  title: 'Opr',
+     //  type: 'O',
+     //  url: '/o',
+     //  icon: 'search'
+     //},
 
 {
       title: 'Plans',
@@ -66,22 +66,20 @@ export class AppComponent {
       url: '/k',
       icon: 'clock'
     },
- 
-
-
 	{
       title: 'Resources',
       type: 'R',
       url: '/r',
       icon: 'book'
     },
-    {
-  title: 'Excerpts',
-  type: 'E',
-  url: '/e',
-  icon: 'bookmark'
-}
 
+    //,
+    //{
+  //title: 'Excerpts',
+  //type: 'E',
+  //url: '/e',
+  //icon: 'bookmark'
+//}
   //    ,
 	// {
   //     title: 'Articles',
@@ -96,22 +94,18 @@ export class AppComponent {
   //     url: '/nws',
   //     icon: 'logo-rss'
   //   } 
-	
-
-  ,
+  {
+      title: 'Notes',
+      type: 'N',
+      url: '/n',
+      icon: 'clipboard'
+    },
   {
     title: 'Writings',
     type: 'W',
     url: '/w',
     icon: 'clipboard'
-  },
-  {
-    title: 'Notes',
-    type: 'N',
-    url: '/n',
-    icon: 'clipboard'
   }
-
   ];
 
   constructor(
