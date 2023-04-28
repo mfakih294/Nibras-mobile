@@ -1,0 +1,74 @@
+body {
+  white-space: pre-wrap !important;
+}
+.welcome-card img {
+  max-height: 40vh;
+  overflow: hidden;
+}
+
+
+.myMenu {
+  max-width: 30px !important;
+  width: 30px !important;
+  color: white;
+}
+
+.menu.menu-left{
+	width: calc(10% - 70px) !important;
+}
+.menu-open .menu-content{
+	transform: translate3d(calc(10% - 70px), 0px, 0px) !important;
+}
+
+ion-menu {
+  max-width: 12% !important;
+}
+
+
+
+.menu-content {
+  max-width: 88% !important;
+}
+
+.menu {
+  --side-width: 40px !important;
+  --side-max-width: 40px !important;
+  --max-width: 45px !important;
+  --width: 45px !important;
+  width: 45px !important;
+}
+
+ion-menu {
+  max-width: 12% !important;
+}
+
+.menu-content {
+  max-width: 88% !important;
+}
+
+
+.native-textarea .sc-ion-textarea-md {
+//height: 100% !important;
+}
+
+.swiper-container-horizontal{
+  bottom: 90% !important;
+}
+.swiper-pagination {
+  bottom: 66% !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.online {
+  color: darkgreen;
+}
+.offline {
+  color: darkgray;
+}
+
+.event-detail {
+  white-space: pre-wrap !important;
+}

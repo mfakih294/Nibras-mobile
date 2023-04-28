@@ -30,17 +30,20 @@ export class NibrasListComponent implements OnInit {
     listall:string[];
     @Input() expanded:boolean;
     tosyncText:String;
+    username;
     dataReturned:any;
     nkId;
     nk;
     ipA;
     ecode;
     rtype;
+
     nkt;
     nktype = 'n';
     module = 'n';
     nbFiles;
     filesList;
+    freshRecord;
     nkd;
     date;
     priority;
@@ -48,7 +51,8 @@ export class NibrasListComponent implements OnInit {
     slideOptions = {
         spaceBetween: 15,
         centeredSlides: false,
-        slidesPerView: 1
+        slidesPerView: 1,
+        scrollbar: true
     }
 //t: String;
 
@@ -92,6 +96,12 @@ export class NibrasListComponent implements OnInit {
             this.storage.set('tosyncText', JSON.stringify({data: []}))
         });
 
+
+        this.storage.get('username').then((val) => {
+            this.username = val
+        }).catch(()=> {
+        });
+
     }
 
     async editModal(ecode, id, files) {
@@ -109,6 +119,7 @@ export class NibrasListComponent implements OnInit {
             this.priority = val.priority
             this.date = val.date
             this.nbFiles = val.nbFiles
+            this.freshRecord = val.freshRecord
             this.filesList = val.fileNames
 
 
@@ -130,6 +141,7 @@ export class NibrasListComponent implements OnInit {
                 "date": this.date,
                 "nbFiles": this.nbFiles,
                 "filesList": this.filesList,
+                "freshRecord": this.freshRecord,
                 edit: true
 
             }
@@ -150,7 +162,7 @@ export class NibrasListComponent implements OnInit {
 
     //item.ecode, item.rtype, item.id, item.title, item.body, item.files
 
-    async openModal(ecode, module, resourceType, id, summary, language, priority, date, description, nbFiles, filesList) {
+    async openModal(ecode, module, resourceType, id, summary, language, priority, date, description, nbFiles, filesList, freshRecord) {
          /*
          var path
          if (ecode == 'R')
@@ -214,6 +226,7 @@ export class NibrasListComponent implements OnInit {
                 "summary": summary,
                 "description": description,
                 "filesList": filesList,
+                "freshRecord": freshRecord,
                 "nbFiles": nbFiles
             }
         });
@@ -238,7 +251,7 @@ export class NibrasListComponent implements OnInit {
 
     clean(text) {
         if (text)
-            return (text != '' ? text.substring(0, 200) : '') //replace(/<br\/>/g, ' ')
+            return (text != '' ? text.substring(0, 80) : '') //replace(/<br\/>/g, ' ')
         else return ''
     }
 
@@ -532,6 +545,7 @@ console.log('after pushing', newone)
             ["m3a", "audio/mpeg"],
             ["mpga", "audio/mpeg"],
             ["mp4", "video/mp4"],
+            ["mkv", "video/x-matroska"],
             ["mp4v", "video/mp4"],
             ["mpg4", "video/mp4"],
             ["txt", "text/plain"],
@@ -639,6 +653,9 @@ console.log('ext is', ext.get(name.split('.')[1]))
 
     async commitOperationButton(id) {
 
+
+
+
     this.storage.get('r-' + id).then(record => {
         console.log('in confirm, id: ', id);
         this.storage.get('ipA').then(val => {
@@ -650,7 +667,8 @@ console.log('ext is', ext.get(name.split('.')[1]))
             headers.append('Content-Type', 'application/json');
             const httpOptions = {headers: headers};
             let postData = {
-                "data": record// val.replace(/<br\/>/g, '\n')
+                "data": record,// val.replace(/<br\/>/g, '\n')
+                "username": this.username
             }
             var ipp = this.ipA
             var link = "https://" + ipp + "/sync/commitMobileRecord"
@@ -723,7 +741,6 @@ console.log('ext is', ext.get(name.split('.')[1]))
 
     async deleteRecord(ecode, id) {
 
-
         const alert = await
         this.alertController.create({
             header: 'Confirm!',
@@ -741,8 +758,14 @@ console.log('ext is', ext.get(name.split('.')[1]))
                     text: 'Ok',
                     handler: () => {
                         /////////////////////////////
+                        this.storage.forEach((value, key, index) => {
+                            if (key.startsWith('r-'))
+                                this.commitOperationButton(key)
+                            console.log('found note22222 ', key, ' value ' , value);
+                        })
 
-console.error('in deleteing' , ecode, ' ' + id)
+
+    console.error('... In deleteting: ' , ecode, ' ' + id)
                         if (ecode == 'o') {
                             this.storage.remove('r-' + id)
 
@@ -751,6 +774,7 @@ console.error('in deleteing' , ecode, ' ' + id)
                         }
                     }
                 }]
+
         })
 
         await

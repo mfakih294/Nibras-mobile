@@ -21,6 +21,25 @@ ion-menu{
   }
 
 }
+
+.tabLabel {
+    font-size: 1.3em !important;
+    font-weight: 600;
+    padding: 1px;
+    margin-left: -5px;
+    margin: 1px;
+
+}
+
+.tabBadge {
+    font-size: 0.95em !important;
+    padding: 2px !important;
+    background: white;
+    //border: 1px solid darkgray;
+    color: black;
+    margin: -5px !important;
+}
+
 .done {
     color: black;
 }
@@ -93,4 +112,28 @@ table td {
 
 .R{
     color: DarkSlateBlue;
+}
+
+
+.swiper-container-horizontal{
+    bottom: 90% !important;
+}
+.swiper-pagination {
+    bottom: 66% !important;
+}
+
+.swiper-container-horizontal{
+
+    bottom: 90% !important;
+}
+
+.swiper-pagination .swiper-pagination-bullets{
+    bottom: 90% !important;
+}
+
+
+
+.ionTabBar {
+    //background: darkgreen;
+    height: 40px;
 }

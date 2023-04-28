@@ -1,0 +1,139 @@
+body {
+    color: black;
+    font-size: 1em;
+    line-height: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.metaRow td,
+.metaRow span,
+.metaRow td a {
+    color: darkgray;
+}
+
+.ar,.Ar {
+    text-align: justify !important;
+    direction: rtl !important;
+    width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word;
+}
+
+.en, .En {
+    text-align: justify !important;
+    direction: ltr !important;
+    font-size: 1em;
+    width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word;
+}
+
+.done2 {
+    text-decoration: line-through !important;
+    
+        color: black !important;
+ 
+    
+}
+
+.justDone {
+    background: darkgray;
+}
+
+.justRead {
+    background: lightgray;
+}
+
+table td {
+    font-size: 1.1em;
+    line-height: 25px;
+}
+
+.ar, .Ar {
+    padding: 3px;
+    margin: 0px;
+    // background: rgb(253, 246, 227) !important;
+    color: rgb(43, 52, 55) !important;
+    ;
+    font-size: 1em;
+    direction: rtl;
+    text-align: right;
+}
+
+.en, .En {
+    padding: 3px;
+    margin: 0px;
+    // background: rgb(253, 246, 227) !important;
+    color: rgb(43, 52, 55) !important;
+    direction: ltr;
+    text-align: left;
+    font-size: 1em;
+}
+
+.Todo {
+    background: darkblue;
+}
+
+.K {
+    background: darkblue;
+}
+
+.O {
+    background: darkgreen;
+}
+
+.Kee {
+    background: darkblue;
+}
+
+.Cal {
+    background: darkblue;
+}
+
+.P {
+    background: darkblue;
+}
+
+.G {
+    background: darkblue;
+}
+
+.G {
+    background: darkgreen;
+}
+
+.T {
+    background: lightseagreen;
+}
+
+.N {
+    background: darkorange;
+}
+
+.W {
+    background: LightSalmon;
+}
+
+.R {
+    background: DarkSlateBlue;
+}
+
+.Nws {
+    background: DarkSlateBlue;
+}
+
+.Art {
+    background: DarkSlateBlue;
+}
+
+.md .hydrated {
+    //padding-bottom: 0px !important;
+}
+
+.ion-card{
+    margin: 3px 6px !important;
+}
+
+.cardActions {
+max-width: 60px !important;
+
+}

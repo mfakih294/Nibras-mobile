@@ -4,6 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Planner
+        ({{items.length}})
 	</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,40 +22,41 @@
   {{message}}
 </div>
 
-      <div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'
-           *ngFor="let line of newItems.split('***')">
-          <div *ngIf="line.substr(1,4).trim() === 'A p'">
+      <!--<div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'-->
+           <!--*ngFor="let line of newItems.split('***')">-->
+          <!--<div *ngIf="line.substr(1,4).trim() === 'A p'">-->
 
-              <div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">
-                  {{line?.split('::')[0].split('--')[0]}}
-              </div>
-              <div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">
-                  {{line?.split('::')[0].split('--')[1]}}
-              </div>
-              <div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">
-                  {{line?.split('::')[1]}}
-              </div>
-          </div>
+              <!--<div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">-->
+                  <!--{{line?.split('::')[0].split('&#45;&#45;')[0]}}-->
+              <!--</div>-->
+              <!--<div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">-->
+                  <!--{{line?.split('::')[0].split('&#45;&#45;')[1]}}-->
+              <!--</div>-->
+              <!--<div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">-->
+                  <!--{{line?.split('::')[1]}}-->
+              <!--</div>-->
+          <!--</div>-->
 
-      </div>
+      <!--</div>-->
+      <app-table-list [items]="items" [expanded]="true"></app-table-list>
+
+      <app-nibras-list [items]="items" [expanded]="true"></app-nibras-list>
+
+<!--<h2>Older</h2>-->
+<!--<app-nibras-list [items]="items2m" [expanded]="false"></app-nibras-list>-->
 
 
+<!--<h2>Yesterday</h2>-->
+<!--<app-nibras-list [items]="items1m" [expanded]="false"></app-nibras-list>-->
 
-<h2>Older</h2>
-<app-nibras-list [items]="items2m" [expanded]="false"></app-nibras-list>
+  <!--<h2>Today</h2>-->
+<!--<app-nibras-list [items]="items0" [expanded]="false"></app-nibras-list>-->
 
-
-<h2>Yesterday</h2>
-<app-nibras-list [items]="items1m" [expanded]="false"></app-nibras-list>
-
-  <h2>Today</h2>
-<app-nibras-list [items]="items0" [expanded]="false"></app-nibras-list>
-
-<h2>Tomorrow</h2>
-<app-nibras-list [items]="items1" [expanded]="false"></app-nibras-list>
+<!--<h2>Tomorrow</h2>-->
+<!--<app-nibras-list [items]="items1" [expanded]="false"></app-nibras-list>-->
   
-<h2>Later</h2>
-<app-nibras-list [items]="items2" [expanded]="false"></app-nibras-list>
+<!--<h2>Later</h2>-->
+<!--<app-nibras-list [items]="items2" [expanded]="false"></app-nibras-list>-->
   
 
   </div>

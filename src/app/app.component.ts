@@ -6,12 +6,21 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Autostart } from '@ionic-native/autostart/ngx';
 
+
+import { ViewEncapsulation, Input, ViewChild } from '@angular/core';
+import {  IonInput } from '@ionic/angular';
+
+//import { BackgroundMode } from '@awesome-cordova-plugins/background-mode/ngx';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  @ViewChild('searchBar', {static: true}) searchInput: IonInput;
+
   public appPages = [
     //{
     //  title: 'Home',
@@ -26,7 +35,18 @@ export class AppComponent {
      //  url: '/o',
      //  icon: 'search'
      //},
-
+      {
+          title: 'Notes',
+          type: 'N',
+          url: '/n',
+          icon: 'clipboard'
+      },
+      {
+          title: 'Writings',
+          type: 'W',
+          url: '/w',
+          icon: 'clipboard'
+      },
 {
       title: 'Plans',
       type: 'P',
@@ -71,7 +91,7 @@ export class AppComponent {
       type: 'R',
       url: '/r',
       icon: 'book'
-    },
+    }
 
     //,
     //{
@@ -94,18 +114,7 @@ export class AppComponent {
   //     url: '/nws',
   //     icon: 'logo-rss'
   //   } 
-  {
-      title: 'Notes',
-      type: 'N',
-      url: '/n',
-      icon: 'clipboard'
-    },
-  {
-    title: 'Writings',
-    type: 'W',
-    url: '/w',
-    icon: 'clipboard'
-  }
+
   ];
 
   constructor(
@@ -113,18 +122,30 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private autostart: Autostart
+    //private backgroundMode: BackgroundMode
   ) {
     this.initializeApp();
+
+
     
 
     
   }
+
+    focusOnSearch(){
+        this.searchInput.setFocus();
+    }
+
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.show();
       this.splashScreen.hide();
       this.autostart.enable();
+      //this.backgroundMode.enable();
+      //this.backgroundMode.setEnabled(true);
+      //  console.log('is active ' , this.backgroundMode.isEnabled()); // => boolean
+      //  this.backgroundMode.overrideBackButton();
     });
   }
 }

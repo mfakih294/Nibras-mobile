@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { File } from '@ionic-native/file/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 
-
+//import { BackgroundMode } from '@awesome-cordova-plugins/background-mode/ngx';
 
 import { FileOpener } from "@ionic-native/file-opener/ngx";
 
@@ -33,6 +33,8 @@ import { ExampleModalPageModule } from './example-modal/example-modal.module';
 
 import { MultipleDocumentsPicker } from '@awesome-cordova-plugins/multiple-document-picker/ngx';
 
+import {  Screenshot } from '@ionic-native/screenshot/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -51,6 +53,8 @@ import { MultipleDocumentsPicker } from '@awesome-cordova-plugins/multiple-docum
     SplashScreen,
     LocalNotifications,
     Autostart,
+      Screenshot,
+      //BackgroundMode,
      File,
      FileOpener,
       HTTP,

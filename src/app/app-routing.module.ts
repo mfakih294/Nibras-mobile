@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
+  { path: 'sync', loadChildren: './sync/sync.module#SyncPageModule' },
   { path: 'p', loadChildren: './p/p.module#PPageModule' },
   { path: 'g', loadChildren: './g/g.module#GPageModule' },
   { path: 'o', loadChildren: './o/o.module#OPageModule' },

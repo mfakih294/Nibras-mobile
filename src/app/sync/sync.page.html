@@ -1,0 +1,188 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+        <span id="appTitle" class="{{status}} {{isOffline ? 'offline' : 'online'}}">
+      Synchronization
+            </span>
+      <!-- {{version}} -->
+    </ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <ion-card class="welcome-card" >
+        <!--img src="/assets/shapes.svg" alt="" /-->
+        <ion-card-header>
+
+            <ion-card-title>
+                Sync
+         </ion-card-title>
+        </ion-card-header>
+        <ion-card-content >
+
+
+
+        <span style="font-style: italic; font-size: small; color: darkgray">
+          URL of Nibras <b>system</b>:
+        </span>
+            <form (ngSubmit)="saveIp2()">
+                <ion-input name="ip"
+                           color="black"
+                           (ionChange)="saveIp2()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
+                border: 1px solid darkgray; background: ghostwhite" placeholder="URL of Nibras system..."
+                           type="text" value="{{ipA}}"
+                           [(ngModel)]="ipA"
+                        ></ion-input>
+                <!--{{(status == 'online' ? 'darkgreen': 'darkgray')}}-->
+<!--todo: fix border green-->
+            </form>
+  <span style="font-style: italic; font-size: small; color: darkgray">
+          URL of Nibras <b>repository</b>
+        </span>
+            <form (ngSubmit)="saveIpRepo()">
+                <ion-input name="ipRepo"
+                           color="black"
+                           (ionChange)="saveIpRepo()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
+                border: 1px solid darkgray; background: ghostwhite; " placeholder="URL of Nibras repository..."
+                           type="text" value="{{ipRepo}}"
+                           [(ngModel)]="ipRepo"
+                        ></ion-input>
+
+                <!--{{(repoStatus == 'online' ? 'darkgreen': 'darkgray')}}-->
+                <!-- <a  style="display: inline; font-size: small; padding
+                : 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+            </form>
+ <span style="font-style: italic; font-size: small; color: darkgray">
+          Allowed extensions to download:
+        </span>
+            <form (ngSubmit)="saveAllowedExtensions()">
+                <ion-input name="ipRepo"
+                           color="black"
+                           (ionChange)="saveAllowedExtensions()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
+                border: 1px solid darkgrey; background: ghostwhite" placeholder="Extensions..."
+                           type="text" value="{{allowedExtensions}}"
+                           [(ngModel)]="allowedExtensions"
+                        ></ion-input>
+                <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+            </form>
+
+  <span style="font-style: italic; font-size: small; color: darkgray">
+          Username {{username}}:
+        </span>
+            <form (ngSubmit)="saveUsername()">
+                <ion-input name="username"
+                           color="black"
+                           (ionChange)="saveUsername()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
+                border: 1px solid darkgrey; background: ghostwhite" placeholder="Username..."
+                           type="text" value="{{username}}"
+                           [(ngModel)]="username"
+                        ></ion-input>
+                <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+            </form>
+
+            <!--<div id='logAreaSettings' style="font-style: italic; font-size: small; padding: 10px 2px; text-align: right; display: inline; color: darkgray">-->
+            <!--</div>-->
+
+            &nbsp;&nbsp;&nbsp;
+
+            <div id='connectionLog' style="font-style: italic; font-size: small; color: darkgray"></div>
+
+
+{{filesToDownload.length}} files to check.
+
+            {{filesProcessed}} processed.
+            <div id='connectionFileResultLog' style="font-style: italic; font-size: small; color: darkgray; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+            <div id='logAreaNotes' style="font-style: italic; font-size: small; color: darkgray; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+            <div id='connectionFileLog' style="font-style: italic; font-size: small; color: darkgray; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+
+            <!--{{progress}} progress.-->
+            <br/>
+            <a id='connectionLogEnd'></a>
+
+            <a id="sync"></a>
+
+            <ion-button outline style="text-transform: none; " (click)="refresh()" fill="clear" color="secondary">
+                <ion-icon style="font-size: 2em;" name="sync"></ion-icon>
+                Sync
+            </ion-button>
+            <ion-button (click)="clearLog();" size="small" style="text-transform: none;" fill="clear">
+                Clear log</ion-button>
+
+
+            <ion-progress-bar [value]="progress"></ion-progress-bar>
+
+
+            <!--ids: {{ids.length}}-->
+
+            <!--<ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncData()" fill="clear">Sync</ion-button>-->
+            <!--<ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncFiles()" fill="clear">Files</ion-button>-->
+
+            <!--<br/>-->
+            <!--<ion-button outline [disabled]="isOffline" style=" padding: 1px;text-transform: none;" fill="clear"-->
+                        <!--(click)="syncWritingsNew();"  size="small">Move</ion-button>-->
+<!---->
+
+
+
+            <!--&nbsp;&nbsp;&nbsp;<div id='logArea' style="font-style: italic; font-size: small; margin: 10px 2px; text-align: right; display: inline; color: darkgray">-->
+        <!--</div>-->
+<!--<br/>-->
+
+
+
+            <ion-label>Collect files</ion-label>
+            <ion-toggle [(ngModel)]="collectFiles" (ionChange)="enableCollectFiles($event); moveFilesJob()" checked="false" name="collectFiles" value="off" color="secondary">
+            </ion-toggle>
+
+            <!--<ion-button  (click)="enableCollectFiles($event); moveFilesJob()" size="small" style="text-transform: none;" fill="clear">-->
+                <!--Collect files</ion-button>-->
+
+
+
+            <ion-label>Actual delete</ion-label>
+            <ion-toggle [(ngModel)]="physicalDelete" (ionChange)="enablePhysicalDelete($event)" checked="false" name="physicalDelete" value="off" color="secondary">
+
+            </ion-toggle>
+            <!--<br/>-->
+            <br/>
+            <ion-button  href="/home" size="small" style="text-transform: none;" fill="clear">
+                Reload</ion-button>
+
+
+
+            <ion-button (click)="clearSync();" size="small" style="text-transform: none;" fill="clear">
+                Clear records</ion-button>
+
+
+            <ion-button (click)="clearFiles();" size="small" style="text-transform: none;" fill="clear">
+                Clear files</ion-button>
+
+
+
+            <!-- <b>Nibras PKM address:</b> -->
+            <!-- <br/> -->
+            <!--<ion-button size="small" style="text-transform: none;" (click)="change()">-->
+            <!-- <ion-icon slot="start" name="edit"></ion-icon> -->
+            <!--Change-->
+            <!--</ion-button>-->
+            <!-- <a  (click) = "refresh()">Check status</a> -->
+            <!-- Get Nibras Desktop IP from the right of its footer area.  -->
+            <!-- Enter the port if it has been changed from the default (433).  -->
+            <!-- App-name is "nibras" by default. -->
+        </ion-card-content>
+    </ion-card>
+
+
+
+</ion-content>

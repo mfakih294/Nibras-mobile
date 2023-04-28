@@ -1,0 +1,133 @@
+<!-- <ion-button >Open Modal</ion-button> -->
+
+<!--<div id='logArea' style="font-style: italic; font-size: small; padding: 3px; color: darkgray"></div>-->
+
+
+<!--<ion-slides pager="true" [options]="slideOptions" >-->
+
+
+<!--<div -->
+     <!--style="padding: 0px; width: 99%; width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">-->
+
+<table border="1" style="border: 1px darkgray; width: 99% !important; margin: 5px 5px;">
+    <tr *ngFor="let item of items; index as i" class="{{item.language}} tableListRow" id="card{{item.ecode}}{{item.id}}">
+        <!--<td class="{{item.language}}" style="font-size: 0.95em ;padding: 3px; margin: 1px 3px; font-size: normal; text-align: center; background: #f3f8fb; border-radius: 5px;">-->
+
+
+
+
+                    <!--<ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}" style="font-size: small; width: 20px;"-->
+                                  <!--checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"-->
+                                  <!--(ionChange)="markDone(item)"></ion-checkbox>-->
+
+                    <!--{{item.id}} &nbsp; -->
+                    <!--</td>-->
+        <td style="padding: 2px; font-size: small">
+
+            <div style="color: white; padding: 3px; margin: 5px 3px 5px 3px; font-weight: bold; font-size: 1.2em; text-align: center; vertical-align: middle; border-radius: 5px;" class="{{item.ecode}}">
+            <!--{{item.ecode == 'o' ? item.module.toUpperCase() : item.ecode}}-->
+            {{i+1}}
+            <!--<sup>{{item.ecode == 'o' ? 'o' : ''}}</sup>-->
+            </div>
+            <br/>
+            <br/>
+  <span *ngIf="item.ecode != 'o'">
+                    <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}" style="font-size: small; width: 20px; float: left; "
+            checked="{{updates['u-d-' + item.ecode + '-' + item.id] ? true : false}}"
+                                  (ionChange)="markDone($event.checked, item.ecode, item.id)"></ion-checkbox>
+                        </span>
+
+
+
+
+  <!--<span *ngIf="item.resourceType">-->
+                <!--#{{item.resourceType}}-->
+                <!--</span>-->
+
+  <!--<span *ngIf="item.status">-->
+                <!--@{{item.status}}-->
+                <!--</span>-->
+
+
+        </td>
+
+        <td class="{{item.language}}" style="padding: 5px 5px 5px 5px; font-size: medium; word-wrap: break-word; overflow-wrap: break-word;"
+                      (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList, item.freshRecord)">
+
+            <!--style="height: 140px; width: auto; display:inline; padding: 7px;"-->
+
+            <!--<img [src]="covers[item.id]"-->
+                 <!--style="height: 60px; width: auto; display:inline; padding: 7px; float: right; "-->
+
+            <img *ngIf="covers[item.id]" [src]="covers[item.id]" height="80px" width="50px" onerror="this.style.display='none'"
+             style="height: 80px; width: auto; display: inline; padding: 7px;  float: left;"/>
+
+            <!--{{typeof item.id}}-->
+
+                <span class="{{item.language}} summary {{updates['u-d-' + item.ecode + '-' + item.id] ? 'done' : ''}}">{{item.summary}}</span>
+<br/>
+            <div *ngIf="item.description" style="word-wrap: break-word; overflow-wrap: break-word;">
+                <!--<br/>-->
+                <span class="{{item.language}} description" [innerHTML]="clean(item.description)"
+                      style="word-wrap: break-word; overflow-wrap: break-word;">
+                        </span>
+                <br/>
+            </div>
+
+<br/>
+                <span *ngIf="item.context"  class="metaTag metaContext">
+                <i>{{item.context}}</i>
+                </span>
+
+<span *ngIf="item.textDate" class="metaTag metaDate">
+                <i>{{item.textDate}}</i>
+                </span>
+
+            <span *ngIf="!item.context && item.meta"  class="metaTag metaMeta">
+                <i>{{item.meta}}</i>
+                </span>
+
+   <span id="appendLog{{item.ecode}}{{item.id}} "*ngIf="appends['u-a-' + item.ecode + '-' + item.id]"  class="appends">
+                {{appends['u-a-' + item.ecode + '-' + item.id]}}
+                </span>
+
+
+
+
+
+
+
+
+
+<div style="display: inline-block; padding: 0px 5px 0px 5px; border: 1px solid darkgray; border-radius: 4px; direction: ltr; text-align: left; margin: 2px 5px;" *ngIf="item.nbFiles">
+    {{item.nbFiles}} files
+    </div>
+
+
+
+            </td>
+            <!--<td  class="{{item.language}}" style="font-size: smaller;">-->
+
+                <!--<ion-button outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                <!--(click)="editModal(item.ecode, item.id, item.files)"-->
+                <!--size="small">-->
+                <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                <!--<ion-label>-->
+                <!--Edit-->
+                <!--</ion-label>-->
+                <!--</ion-button>-->
+
+
+            <!--</td>-->
+
+        <!--<td class="{{item.language}} {{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? 'done2' : ''): ''}}"-->
+                <!--style="font-size: 0.95em; padding: 3px 10px 2em 2em;" (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)">-->
+                <!--{{clean(item.description)}}-->
+                <!--<span [innerHTML]="clean(item.description)"></span>-->
+        <!--</td>-->
+
+    </tr>
+<!--</div>-->
+
+<!--</ion-slides>-->
+</table>

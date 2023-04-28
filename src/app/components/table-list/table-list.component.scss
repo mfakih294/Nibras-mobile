@@ -1,0 +1,205 @@
+body {
+    color: black;
+    font-size: 1.2em;
+    line-height: 30px;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+* {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.metaRow td,
+.metaRow span,
+.metaRow td a {
+    color: darkgray;
+}
+
+.ar,.Ar {
+    text-align: justify !important;
+    direction: rtl !important;
+
+}
+
+.en, .En {
+    text-align: justify !important;
+    direction: ltr !important;
+    font-size: 1em;
+
+}
+
+.done2 {
+    text-decoration: line-through !important;
+    
+        color: black !important;
+ 
+    
+}
+
+.done {
+    text-decoration: line-through !important;
+
+        color: black !important;
+
+}
+
+.justDone {
+    background: darkgray;
+}
+
+.justRead {
+    background: lightgray;
+}
+
+table td {
+    font-size: 1em;
+    line-height: 25px;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.ar, .Ar {
+    padding: 3px;
+    margin: 0px;
+    // background: rgb(253, 246, 227) !important;
+    color: rgb(43, 52, 55) !important;
+    ;
+    font-size: 1em;
+    direction: rtl;
+    text-align: right;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.en, .En {
+    padding: 3px;
+    margin: 0px;
+    // background: rgb(253, 246, 227) !important;
+    color: rgb(43, 52, 55) !important;
+    direction: ltr;
+    text-align: left;
+    font-size: 1em;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.Todo {
+    background: darkblue;
+}
+
+.K {
+    background: darkblue;
+}
+
+.O {
+    background: darkgreen;
+}
+
+.Kee {
+    background: darkblue;
+}
+
+.Cal {
+    background: darkblue;
+}
+
+.J {
+    background: rgb(224, 167, 9);
+}
+.P {
+    background: darkblue;
+}
+
+.G {
+    background: darkblue;
+}
+
+.G {
+    background: darkgreen;
+}
+
+.T {
+    background: rgb(113, 163, 113);
+}
+
+.N {
+    background: darkorange;
+}
+
+.W {
+    background: rgb(146, 58, 168);;
+}
+
+.R {
+    background: DarkSlateBlue;
+}
+
+.Nws {
+    background: DarkSlateBlue;
+}
+
+.Art {
+    background: DarkSlateBlue;
+}
+
+.md .hydrated {
+    //padding-bottom: 0px !important;
+}
+
+.ion-card{
+    margin: 3px 8px !important;
+}
+
+.tableListRow:hover{
+    background: #eee;
+    cursor: pointer;
+}
+.tableListRow:active{
+    background: #aaa;
+    cursor: progress;
+}
+
+
+.metaTag {
+
+    border: 1px solid darkgray;
+    border-radius: 5px;
+
+    padding: 4px;
+    margin: 5px;
+
+}
+
+.appends {
+    display: block;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+
+    padding: 4px;
+    margin: 3px;
+    color: darkgreen;
+
+}
+
+.metaContext {
+
+   border-background: darkgreen;
+
+}
+
+.summary {
+    font-weight: bold;
+}
+
+.summary, .description {
+    display: inline;
+    line-height: 20px;
+    margin-top: 7px;
+}
+

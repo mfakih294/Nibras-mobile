@@ -2,44 +2,48 @@
 
 <!--<div id='logArea' style="font-style: italic; font-size: small; padding: 3px; color: darkgray"></div>-->
 
-<ion-slides pager="true" [options]="slideOptions">
+
+<ion-slides pager="true" style="padding-top: 50px" [options]="slideOptions" >
 
 
 <ion-slide *ngFor="let item of items"
      style="padding: 0px; width: 99%; width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
+
     <!-- <tr>
     <td colspan="3">tr> -->
     <!-- <td colspan="3"> -->
 
     <ion-card class="{{item.language}}" button="true" id="card{{item.ecode}}{{item.id}}" style="width: 95% !important;">
-        <ion-card-header>
+        <ion-card-header class="ionCardHeader">
             <ion-card-title class="{{item.language}}"
 
                             style="font-size: 1.2em;">
 
 
-                <div class="en"
-                     style="padding: 3px; margin: 1px 3px; font-size: large; background: #f3f8fb; border-radius: 5px;border: 1px solid #e5e5e5; float: left;">
+                <div class="en cardActions"
+                     style="width: 60px !important; padding: 3px; margin: 1px 3px; font-size: large; background: #f3f8fb; border-radius: 5px;border: 1px solid #e5e5e5; float: left;">
 
                     <b style="color: black; padding: 3px; margin: 3px 3px; " class="{{item.ecode}}">
                         {{item.ecode == 'o' ? item.module.toUpperCase() : item.ecode}}
-                        <sup>{{item.ecode == 'o' ? 'o' : ''}}</sup>
+                        <!--<sup>{{item.ecode == 'o' ? 'o' : ''}}</sup>-->
                     </b>
 
-
+                    <span *ngIf="item.ecode != 'o'">
                     <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}" style="font-size: small; width: 20px;"
                                   checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"
                                   (ionChange)="markDone(item)"></ion-checkbox>
+                        </span>
+
+                    <div style="padding: 2px; font-size: small">
+                        <i>{{item.meta ? item.meta : 'p' + item.priority}}</i>
+                    </div>
+
 
                     <!--{{item.id}} &nbsp; -->
-                    <div style="padding: 2px; font-size: small">
-                        <i>{{item.meta}}</i>
-                    </div>
-                </div>
+               </div>
                 <div class="{{item.language}}"
                       (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)">
                 {{item.summary}}
-
                 </div>
             </ion-card-title>
             <ion-card-subtitle class="{{item.language}}" style="font-size: smaller;">
@@ -65,8 +69,7 @@
 
                 style="font-size: 1em; padding: 3px 10px 2em 2em;">
 
-
-            <div (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)">
+            <div (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList, item.freshRecord)">
                 <!--{{clean(item.description)}}-->
                 <div [innerHTML]="clean(item.description)"></div>
             </div>
@@ -80,6 +83,9 @@
 
             </div>
 
+            <div  id="updateLog{{item.ecode + '' + item.id}}" *ngIf="item.ecode == 'o'">
+                </div>
+
 
             <!--<div class="ion-text-center" dir="ltr" style="display: inline-block; padding: 0px;">-->
             <!--<i>{{item.nbFiles ? item.nbFiles + ' files' : ''}} </i>-->
@@ -90,7 +96,8 @@
 
             <!--</div>-->
 
-            <div *ngIf="!item.freshRecord">
+            <!--<div *ngIf="!item.freshRecord">-->
+            <div *ngIf="item.toDoCondition">
                 <div *ngIf="item.filesList" id="{{item.ecode + '' + item.id}}filesTr"
                      style="width: 99% !important; direction: ltr; text-align: left; columns-count: 3;">
 

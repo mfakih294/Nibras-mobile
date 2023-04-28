@@ -1,0 +1,128 @@
+
+<table *ngFor="let item of items"
+
+style="padding: 2px; width: 99%; max-width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">
+<tr style="padding: 2px; " >
+
+     <td id="{{item.type + '' + item.id + 'title'}}" 
+    colspan="4" 
+    style="cursor: pointer; font-weight: bold; border-right: 0px;  border-left: 0px; border-top: 1px lightgray !important; padding: 4px; background:lightyellow; font-size: normall;"
+    class="{{item.language}} {{tosyncText.includes(',' + item.type + '' + item.id) ? 'done ' : ''}}" 
+    (click)="openNext(item)">
+    <hr/>
+    <span class="{{item.type}}" 
+    style="color: white;">
+     
+
+      <b>{{item.type}}</b>
+      
+</span>
+
+{{item.title}}  
+     
+     </td>
+
+     
+     </tr>
+     
+     <tr class="metaRow">
+     <td style="width: 12%">
+        <input type="checkbox"
+        id="{{item.type + '' + item.id + 'checkbox'}}"
+        (change)="markDone(item)"        
+        />
+        &nbsp;
+     </td>
+       <td></td>
+      <td style=" border-left: 0px;  border-right: 0px;  border-bottom: 0px; border-top: 1px lightgray !important; margin: 4px;text-align: left; font-weight: bold; font-size: small;" 
+        >
+        {{item.id}}
+        &nbsp;
+        <span  (click)="copyText(item)">
+Copy      
+        </span>
+        <span id="{{item.type + '' + item.id + 'copy'}}"> 
+          </span>
+&nbsp;
+        <span (click)="showFiles(item)">
+            &nbsp;  {{item.nbFiles}} files </span>
+        <!-- <span (click)="listFilenames(item)">{{item.nbFiles}} files </span> -->
+        &nbsp;
+      </td>
+
+      <td style="text-align: right; font-size: small;"> 
+          <i>{{item.meta}}</i>
+      </td>
+    </tr>
+   
+	   <!-- -->
+<tr>
+  <td id="{{item.type + '' + item.id + 'preview'}}" 
+  colspan="4"
+  style="font-size: small; word-wrap: break-word; border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px rgb(253, 226, 226) !important; padding: 0.7em; 
+  padding-right: 1em; cursor: pointer; overflow: hidden; overflow-wrap: anywhere; max-width: 99% !important;"
+  class="{{item.language}} {{tosyncText.includes(',' + item.type + '' + item.id) ? 'done ' : ''}}"
+  (click)="openNext(item)">
+  
+  {{clean(item.body)}} 
+
+ 
+  </td>
+</tr>
+
+<tr>
+  <td id="{{item.type + '' + item.id}}"
+  colspan="4"   
+  style=" word-wrap: break-word; border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px rgb(253, 226, 226) !important; padding: 0.7em; 
+  padding-right: 1em; cursor: zoom-out; overflow: hidden; overflow-wrap: anywhere; max-width: 99% !important;"
+  class="{{item.language}}"
+  (click)="close(item); ">
+  
+  
+ 
+   
+  </td>
+</tr>
+
+ <!-- <tr>  -->
+  <!-- <td colspan="4" style="column-count: 2"> -->
+    <!-- <div id="{{item.type + '' + item.id}}files1"> -->
+      
+      
+      <!-- <table *ngFor="let file of listFilenames(item)">
+        <tr>
+          <td>{{file}} </td>
+        </tr>
+      </table> -->
+
+
+    <!-- </div> -->
+  <!-- </td> -->
+<!-- </tr> -->
+ <!-- {{listFilenames(item)}}\ -->
+ <tr *ngIf="item.type == 'R' && item.files" id="{{item.type + '' + item.id}}filesTr" class="hidden">    
+   <td  colspan="4" id="{{item.type + '' + item.id}}files" style="column-count: 3">
+    <ul *ngFor="let file of item.files.split('\n')">    
+     <li (click)="openRFile(item.type, item.rtype, item.id, file)">
+      {{file}}
+     </li>    
+  </ul> 
+</td>
+</tr>
+
+<tr *ngIf="item.type == 'E' && item.files" id="{{item.type + '' + item.id}}filesTr" class="hidden">    
+    <td  colspan="4" id="{{item.type + '' + item.id}}files" style="column-count: 3">
+     <ul *ngFor="let file of item.files.split('\n')">    
+      <li (click)="openFile(item.type, item.id, file)">
+       {{file}}
+      </li>    
+   </ul>
+ </td>
+ </tr>
+
+   
+    
+
+</table>
+
+

@@ -42,6 +42,19 @@ We recommend passing a custom class to cssClass in the create method
   */
 
 
+body{
+  //white-space: pre-wrap !important;
+}
+
+td, div {
+text-align: start !important; unicode-bidi: plaintext !important;
+}
+
+input, textarea {
+text-align: start !important; unicode-bidi: plaintext !important;
+}
+
+
 .nbrModal .modal-wrapper {
   font-size: 1.1em;
   line-height: 30px;
@@ -66,7 +79,6 @@ We recommend passing a custom class to cssClass in the create method
 .split-pane-side{ 
   min-width: 22% !important;
   max-width: 22% !important;
-
 }
 
 a{
@@ -96,5 +108,48 @@ a{
   }
 
 
-  
- 
+
+
+
+//.swiper-container-horizontal{
+//
+//  bottom: 90% !important;
+//}
+.swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+  bottom: 85% !important;
+  text-align: left !important;
+  padding-left: 30px !important;
+}
+.swiper-pagination .swiper-paginaticardActionson-bullets{
+  //bottom: 80% !important;
+
+  text-align: left !important;
+  padding-left: 4em !important;
+}
+
+.ionCardHeader {
+  padding: 3px;
+}
+
+
+.monthview-primary-with-event {
+  //background-color: #FF5722!important;
+}
+.monthview-selected {
+  //background-color: #FF9800 !important;
+}
+.event-detail {
+  white-space: pre-wrap !important;
+}
+
+.cardActions {
+  max-width: 60px !important
+}
+
+
+
+ion-progress-bar {
+  height:15px;
+  border-radius:15px;
+}
+

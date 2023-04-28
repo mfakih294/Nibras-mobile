@@ -1,0 +1,135 @@
+<!-- <ion-button >Open Modal</ion-button> -->
+
+<!--<div id='logArea' style="font-style: italic; font-size: small; padding: 3px; color: darkgray"></div>-->
+
+
+<!--<ion-slides pager="true" [options]="slideOptions" >-->
+
+
+<!--<div -->
+     <!--style="padding: 0px; width: 99%; width: 99% !important; word-wrap: break-word !important; overflow-wrap: break-word">-->
+
+    <!-- <tr>
+    <td colspan="3">tr> -->
+    <!-- <td colspan="3"> -->
+
+    <ion-card  *ngFor="let item of items" class="{{item.language}}" button="true" id="card{{item.ecode}}{{item.id}}"
+               style="margin: 20px 20px;  width: 90% !important;">
+        <ion-card-header class="ionCardHeader" (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList, item.freshRecord)">
+            <ion-card-title class="{{item.language}}"
+
+                            style="font-size: 1.2em;">
+
+
+                <div class="en"
+                     style="max-width: 60px; padding: 3px; margin: 1px 3px; font-size: large; background: #f3f8fb; border-radius: 5px;border: 1px solid #e5e5e5; float: left;">
+
+                    <b style="color: black; padding: 3px; margin: 3px 3px; " class="{{item.ecode}}">
+                        {{item.ecode == 'o' ? item.module.toUpperCase() : item.ecode}}
+                        <!--<sup>{{item.ecode == 'o' ? 'o' : ''}}</sup>-->
+                        <sup>{{item.priority}}</sup>
+                    </b>
+
+                    <div *ngIf="item.ecode != 'o'">
+                    <ion-checkbox id="{{item.ecode + '' + item.id + 'checkbox'}}" style="font-size: small; width: 20px;"
+                                  checked="{{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? true : false): false}}"
+                                  (ionChange)="markDone(item)"></ion-checkbox>
+                        </div>
+
+
+
+
+                    <!--{{item.id}} &nbsp; -->
+                    <div style="padding: 2px; font-size: small">
+                        <i>{{item.meta}}</i>
+                    </div>
+                </div>
+                <div class="{{item.language}}">
+                {{item.summary}}
+                </div>
+            </ion-card-title>
+            <ion-card-subtitle class="{{item.language}}" style="font-size: smaller;">
+
+                <!--<ion-button outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                <!--(click)="editModal(item.ecode, item.id, item.files)"-->
+                <!--size="small">-->
+                <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                <!--<ion-label>-->
+                <!--Edit-->
+                <!--</ion-label>-->
+                <!--</ion-button>-->
+
+
+            </ion-card-subtitle>
+
+
+        </ion-card-header>
+
+
+        <ion-card-content
+                class="{{item.language}} {{tosyncText ? (tosyncText.includes(',' + item.ecode + '' + item.id) ? 'done2' : ''): ''}}"
+                (click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList, item.freshRecord)"
+                style="font-size: 1em; padding: 3px 10px 2em 2em;">
+            <!--(click)="openModal(item.ecode, item.module, item.resourceType, item.id, item.summary, item.language, item.priority, item.date, item.description, item.nbFiles, item.filesList)"-->
+            <div >
+                <!--{{clean(item.description)}}-->
+                <div [innerHTML]="clean(item.description)"></div>
+            </div>
+            <br/>
+
+
+            <!--<div class="ion-text-center" dir="ltr" style="display: inline-block; padding: 0px;">-->
+            <!--<i>{{item.nbFiles ? item.nbFiles + ' files' : ''}} </i>-->
+            <!--</div>-->
+            <!--<div >-->
+            <!--</div>-->
+
+
+            <!--</div>-->
+
+            <!--<div *ngIf="!item.freshRecord">-->
+                <!--<div *ngIf="item.filesList" id="{{item.ecode + '' + item.id}}filesTr"-->
+                     <!--style="width: 99% !important; direction: ltr; text-align: left; columns-count: 3;">-->
+
+
+                    <!--<ion-button *ngFor="let file of item.filesList.split('\n')"-->
+                                <!--(click)="openRFile(item.ecode, '', item.id, file.split('|')[0])"-->
+                                <!--size="small" style="text-transform: none;" fill="clear">-->
+                        <!--style="border: gainsboro solid; border-radius: 5px; padding: 3px; margin: 4px; display: block"-->
+                        <!--{{file.split('|')[0]}}-->
+                        <!--{{file?.split('.')[0]}}                    -->
+                    <!--</ion-button>-->
+
+                    <!--<ion-button *ngFor="let file of item.filesList.split('\n')" outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                    <!--(click)="openRFile(item.ecode, '', item.id, file)" size="small">-->
+                    <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                    <!--<ion-label>-->
+                    <!--{{file}}-->
+                    <!--</ion-label>-->
+                    <!--</ion-button>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+        </ion-card-content>
+
+        <div  id="editLog{{item.ecode + '' + item.id}}" *ngIf="item.ecode == 'o'">
+
+             <span *ngIf="item.ecode == 'o'">
+                    <ion-button outline style="text-transform: none; width: 99%;" size="small" class="fill"
+                                (click)="commitOperationButton(item.id);">
+                        Import
+                    </ion-button>
+                    </span>
+
+            <!--<ion-button outline style="text-transform: none;" (click)="deleteRecord(item.ecode, item.id)" fill="clear" >Delete</ion-button>-->
+
+        </div>
+
+
+    </ion-card>
+
+
+<!--</div>-->
+
+<!--</ion-slides>-->

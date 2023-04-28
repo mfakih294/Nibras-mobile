@@ -4,7 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-	Writings</ion-title>
+	Writings
+        ({{items.length}})
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,8 +25,8 @@
   
   <br/>
 
-  
 
+      <app-table-list [items]="items"></app-table-list>
 <app-nibras-list [items]="items" [expanded]="false"></app-nibras-list>
 
   

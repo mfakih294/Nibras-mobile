@@ -3,7 +3,9 @@
      <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Goals</ion-title>
+    <ion-title>Goals
+        ({{items.length}})
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,28 +21,29 @@
   {{message}}
 </div>
   <br/>
-      <div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'
-           *ngFor="let line of newItems.split('***')">
-          <div *ngIf="line.substr(1,4).trim() === 'A g'">
+      <!--<div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'-->
+           <!--*ngFor="let line of newItems.split('***')">-->
+          <!--<div *ngIf="line.substr(1,4).trim() === 'A g'">-->
 
-              <div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">
-                  {{line?.split('::')[0].split('--')[0]}}
-              </div>
-              <div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">
-                  {{line?.split('::')[0].split('--')[1]}}
-              </div>
-              <div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">
-                  {{line?.split('::')[1]}}
-              </div>
-          </div>
+              <!--<div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">-->
+                  <!--{{line?.split('::')[0].split('&#45;&#45;')[0]}}-->
+              <!--</div>-->
+              <!--<div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">-->
+                  <!--{{line?.split('::')[0].split('&#45;&#45;')[1]}}-->
+              <!--</div>-->
+              <!--<div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">-->
+                  <!--{{line?.split('::')[1]}}-->
+              <!--</div>-->
+          <!--</div>-->
 
-      </div>
+      <!--</div>-->
 
       <br/>
 
-  
 
+<app-table-list [items]="items" [expanded]="true"></app-table-list>
 <app-nibras-list [items]="items" [expanded]="true"></app-nibras-list>
+
 
   
   

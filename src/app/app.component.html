@@ -22,8 +22,8 @@
       <!--</ion-content>-->
     <!--</ion-menu>-->
 
-<ion-tabs>
-    <ion-tab-bar slot="bottom" >
+<!--<ion-tabs>-->
+    <!--<ion-tab-bar>-->
 
       <!--<ion-tab-button href="/home">-->
         <!--<ion-label class="home">-->
@@ -31,11 +31,59 @@
         <!--</ion-label>-->
       <!--</ion-tab-button>-->
 
-      <ion-tab-button *ngFor="let p of appPages" href="/home#{{p.type}}">
-    <ion-label class="{{p.type}}">
-    {{p.type}}
+
+
+  <!--</ion-tab-bar>-->
+<!--</ion-tabs>-->
+
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="ionTabBar">
+  <ion-tab-button class="tabButton" *ngFor="let p of appPages" href="/home#{{p.type}}">
+    <ion-label class="tabLabel {{p.type}}">
+      {{p.type}}
     </ion-label>
-        <ion-badge id="{{p.type}}badge">0</ion-badge>
+    <ion-badge class="tabBadge" id="{{p.type}}badge">-</ion-badge>
+  </ion-tab-button>
+  </ion-tab-bar>
+
+  <ion-tab-bar class="ionTabBar" style="">
+    <!--display: none;-->
+
+     <ion-tab-button href="/home#add">
+    <ion-label style="font-weight: bold" class="addTab">
+    Add
+    </ion-label>
+    </ion-tab-button>
+    <ion-tab-button href="/home#search">
+      <ion-label class="addTab">
+        Search
+      </ion-label>
+    </ion-tab-button>
+
+
+    <!--<ion-tab-button href="/home#t">-->
+    <!--<ion-label class="tasksTab">-->
+      <!--Tasks-->
+    <!--</ion-label>-->
+    <!--</ion-tab-button> -->
+    <ion-tab-button href="/home#calendar">
+    <ion-label class="calendarTab">
+      Calendar
+    </ion-label>
+    </ion-tab-button>
+
+
+    <!--<ion-tab-button href="/home#browse">-->
+    <!--<ion-label class="browseTab">-->
+      <!--Browse-->
+    <!--</ion-label>-->
+    <!--</ion-tab-button>-->
+
+   <ion-tab-button href="/home#sync">
+    <ion-label class="syncTab">
+      Sync
+    </ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>

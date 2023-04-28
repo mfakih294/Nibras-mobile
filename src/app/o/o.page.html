@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Operations
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding"  >
+      <!-- style="direction: rtl; text-align: right;" -->
+       
+       <!-- <input type="ipA" name="ipA" value="{{ipA}}" [(ngModel)]="ipA"> -->
+       <!-- <ion-button  style="font-size: small; padding: 1px" (click) = "updat()">Set IP</ion-button> -->
+      <!-- <p name="message" [innerHTML]="message" [(ngModel)]="message"></p> -->
+  <!-- <div [innerHTML]="mytext"></div> -->
+<div style="font-size: small; background: mintcream; font-style: italic;">
+  {{message}}
+</div>
+
+<app-nibras-list [items]="items"></app-nibras-list>
+
+  
+  
+  </div>
+  <!--
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title }}</b>
+    </div>
+  -->
+</ion-content>

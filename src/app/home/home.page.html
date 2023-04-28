@@ -1,300 +1,797 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Nibras Reader v3.0.1
-      <!-- {{version}} -->
-    </ion-title>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+        <span id="appTitle" class="{{status}}">
+      Nibras Reader v3.8.5
+            ({{status}})
+</span>
+            <!-- {{version}} -->
+        </ion-title>
+        <div style="float: right; font-size: small; padding-top: 5px;">
+Last synced: {{lastSyncDate}} <span style="color: darkgreen">({{lastSyncDiff}})</span>&nbsp;&nbsp;
+        </div>
 
-
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  
-  <!-- <b>Nibras Files IP and port</b>: 
-          <a (click) = "changeF()">
-            {{ipF}} (edit)
-          </a>
-        -->
-
-  <!-- <a href="files/eg.jpg" target="_blank">eg.jpg</a> -->
-
-  <!-- <b></b>{{tosync?.split(',')?.length - 1}} records to  -->
-  <!-- <a  style="font-size: small; padding: 1px" (click) = "syncDone()">commit.</a> -->
-  <!--     <div style="border-bottom: 1px solid darkgray">
-          
-          <br/>
-          
-		  </div>
-          <br/>
-          <hr/>
-          <br/>  -->
-
-  <!-- <ion-card>
-    
-    <ion-card-header>
-
-      <ion-card-title>Sync
-
-        
-
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-
-    </ion-card-content>
-  </ion-card> -->
 
 
-  <!-- <div style="border-bottom: 1px solid darkgray"> -->
+    ﻿ <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+
+    <ion-fab-button (ionFocus)="focusOnAdd()" color="secondary">
+        <ion-icon name="add" ></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button (ionFocus)="focusOnSearch()"  color="primary" size="small">
+        <ion-icon name="search" ></ion-icon>
+    </ion-fab-button>
 
 
 
+</ion-fab>
+
+
+﻿ <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+
+    <ion-fab-button (ionFocus)="focusOnCalendar()"  size="small">
+        <ion-icon name="calendar" ></ion-icon>
+    </ion-fab-button>
+
+
+     <ion-fab-button (ionFocus)="focusOnSync()" size="small">
+        <ion-icon name="sync" ></ion-icon>
+    </ion-fab-button>
+
+
+</ion-fab>
+
+
+
+    <!--<img [src]="coverData"/>-->
+
+    <!--<img src="{{coverData}}" width="50%" height="50%" alt="Image"/>-->
+    <!--<img src="data:image/jpg;base64, {{coverData}}"/>-->
+
+    <!--32<img src="{coverData}" width="50%" height="50%" alt="Image"/>-->
+
+    <!--{{coverData}}-->
+
+    <!--___==<img [src]="{{coverData}}"/>-->
+    <!--=<img src="cdvfile://localhost/persistent/0/Nibras/R/19187/cover.jpg"/>-->
+    <!--=<img src="cdvfile://localhost/persistent/Nibras/R/19187/cover.jpg"/>-->
+    <!--=<img src="cdvfile://localhost/persistent/emulated/0//Nibras/R/19187/cover.jpg"/>-->
+
+
+    <!--<br/>-->
+
+
+    <!-- <b>Nibras Files IP and port</b>:
+            <a (click) = "changeF()">
+              {{ipF}} (edit)
+            </a>
+          -->
+
+    <!-- <a href="files/eg.jpg" target="_blank">eg.jpg</a> -->
+
+    <!-- <b></b>{{tosync?.split(',')?.length - 1}} records to  -->
+    <!-- <a  style="font-size: small; padding: 1px" (click) = "syncDone()">commit.</a> -->
+    <!--     <div style="border-bottom: 1px solid darkgray">
+
+            <br/>
+
+            </div>
+            <br/>
+            <hr/>
+            <br/>  -->
+
+    <!-- <ion-card>
+
+      <ion-card-header>
+
+        <ion-card-title>Sync
+
+
+
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+      </ion-card-content>
+    </ion-card> -->
+
+
+    <!-- <div style="border-bottom: 1px solid darkgray"> -->
 
 
     <!--<div id='logArea2' style="font-style: italic; font-size: small; padding: 3px; text-align: right; color: darkgray"></div>-->
 
-    <ion-searchbar
-            (ionChange)="search($event.detail.value)"
-            (search)="search($event.target.value)"
-            (cancel)="hideSearchResults()"
-            debounce="1000"
 
-            placeholder="Search..."></ion-searchbar>
+    <a id="search"></a>
+    <!--<ion-card-content [ngStyle]="{ 'white-space': 'pre-wrap'}">-->
+    <br/>
+        <ion-searchbar
+                (ionChange)="search($event.detail.value)"
+                (search)="search($event.target.value)"
+                (cancel)="hideSearchResults()"
+                debounce="1000"
+                id="searchBar"
+
+                (ionCancel)="clearSearchResults()"
+                showCancelButton="always"
+                #searchBar
+                placeholder="Search..."></ion-searchbar>
+    <!--(ionClear)="clearSearchResults()"-->
+    <!--showClearButton="always"-->
+
     <!--cancelable="true" todo -->
 
-    <div id='searchLog' style="font-style: italic; font-size: small; padding: 10px 2px; text-align: right; display: inline; color: darkgray"></div>
+    <!--<ion-button outline style="text-transform: none;" (click)="clearSearchResults()" title="Close">-->
 
-    <app-nibras-list [items]="searchItems"></app-nibras-list>
+        <!--<ion-icon style="font-size: 1em;" name="close"></ion-icon>-->
 
-
-    <ion-card>
-    <!--img src="/assets/shapes.svg" alt="" /-->
-    <!--<ion-card-header>-->
-
-      <!--<ion-card-title>Add-->
-<!---->
-      <!--</ion-card-title>-->
-    <!--</ion-card-header>-->
-    <ion-card-content [ngStyle]="{ 'white-space': 'pre-wrap'}">
-      <form>
-          <!--(ngSubmit)="savek();"-->
-              <!--<b>New </b>-->
-          <!--interface="action-sheet"-->
-
-          <div  style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
-<b (click)="refresh()">
-    Add
-</b>
-              <ion-select name="module" [(ngModel)]="module" interface="popover"
-        mutiple="false" (value)="module"
-        (ionChange)="saveForm()">
-        <ion-select-option value='n'>note</ion-select-option>
-                  <ion-select-option value='j'>journal</ion-select-option>
-
-                  <ion-select-option value='p'>plan</ion-select-option>
-                  <ion-select-option value='t'>task</ion-select-option>
-                  <ion-select-option value='g'>goal</ion-select-option>
-
-                  <ion-select-option value='w'>writing</ion-select-option>
-         <ion-select-option value='r'>resource</ion-select-option>
-                  <ion-select-option value='q'>payment</ion-select-option>
-        </ion-select>
-
-              <ion-label>+ files</ion-label>
-              <ion-toggle [(ngModel)]="withFolder" (ionChange)="moveFiles($event)" checked="false" name="withFolder" value="on" color="secondary"></ion-toggle>
-
-              <ion-label> pr.  </ion-label>
-              &nbsp;<ion-range style="margin: 0px; padding: 0px;" [(ngModel)]="priority"
-                               (ionBlur)="saveForm()"
-                               name="priority" pin="true"  min="2" max="5" step="1" snaps="true"
-                               ticks="true" color="secondary"></ion-range>
-
-              </div>
-              <div  style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
-                  <ion-datetime name="date" [(ngModel)]="date" (ionBlur)="saveForm()"
-                                displayFormat="DDD DD MMM, YY HH:mm" pickerFormat="YYYY MMM DDD HH mm"
-                                minuteValues="0,15,30,45"
-                                placeholder="at current time"></ion-datetime>
-
-              <!--<ion-label>files</ion-label>-->
-              <!--<ion-toggle [(ngModel)]="grabAll" checked="true" name="grabAll" checked="true" value="on" color="secondary"></ion-toggle>-->
-
-
-                  <!--</div>-->
-
-                  <!--<div  style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px;">-->
-
-                  </div>
-              <!--picketOptions="{columns: ['Y', 'M', 'D', 'H', 'm']}" -->
-
-          <!--Has files?-->
-          <!--<ion-checkbox slot="end" value={val}  [(ngModel)]="withFolder"></ion-checkbox>-->
-              <!--<ion-label position="floating">Title</ion-label>-->
-              <ion-textarea  name="summary" autofocus="true" rows="2"
-                          color="black" placeholder="Title"
-                          (ionBlur)="saveForm()"
-                          style="height: 50px; font-size: 1em; text-align: right !important; direction: rtl !important; background: ghostwhite"
-                          type="text" id="summary"
-                          [(ngModel)]="summary"></ion-textarea>
-              <!--<ion-label position="floating">Details</ion-label>-->
-
-          <ion-textarea  name="description" rows="4" autosize
-        (ionBlur)="saveForm()" placeholder="Description"
-        color="black"  
-        style="height: 80px; font-size: 1em; display: inline-block; text-align: right !important; direction: rtl !important; background: ghostwhite"
-              type="text" id="description"
-          [(ngModel)]="description"></ion-textarea>
-
-          <ion-button outline style="text-transform: none;" size="small" expand="block"
-                      (click)="savekNew();">Save</ion-button>
-
-
-          <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;"  -->
-        <!-- (click) = "savek();" onclick="document.getElementById('nkinput').focus()">Add</a> -->
-
-
-          <!--<ion-button outline style="text-transform: none;" size="small" fill="clear"-->
-                      <!--(click)="savekWithFile();">Add and create folder</ion-button>-->
-          <!--before="if(!confirm('Are you sure you want to clear the entered notes?')) return false"-->
-
-      </form>
+    <!--</ion-button>-->
 
 
 
-        <!--files: {{files}}+-->
+
+
+    <span id='searchLog'
+          style="font-style: italic; font-size: small; padding: 2px 2px; text-align: right; display: inline; color: darkorange"></span>
+
+        <!--<app-plain-list [items]="searchItems"></app-plain-list>-->
+        <app-table-list [items]="searchItems"
+                        [covers]="covers">
+
+        </app-table-list>
+    <!--</ion-card-content>-->
+    <!--</ion-card>-->
+
+    <ion-card style="margin-top: 0px;">
+        <!--img src="/assets/shapes.svg" alt="" /-->
+        <!--<ion-card-header>-->
+
+        <!--<ion-card-title>Add-->
+        <!---->
+        <!--</ion-card-title>-->
+        <!--</ion-card-header>-->
+
+        <ion-card-content [ngStyle]="{ 'white-space': 'pre-wrap'}">
+            <form (ngSubmit)="savekNew();">
+                <!--<b>New </b>-->
+                <!--interface="action-sheet"-->
+                <a id="add"></a>
+                <br/>
+                <span id='addOperation'>
+                    <span style="color: darkgreen">Add note with priority 2</span>
+
+                </span>
+                <!--<br/>-->
+
+                <div style="width: 100% ;display: flex; justify-content:  flex-start; align-items: flex-start">
+                    <!--<b (click)="refresh()">-->
+                        <!--+-->
+                    <!--</b>-->
+                    <!--(ionChange)="saveForm()"-->
+
+                    <!--<ion-list>-->
+                    <!--<b>+</b>-->
+                    <ion-radio-group name="module" (value)="module" (ionChange)="moduleChange()" [(ngModel)]="module">
+                        <ion-row>
+
+                            <ion-col *ngFor="let m of modules">
+                                <ion-item>
+
+                                    <ion-label>{{m.id}}</ion-label>
+                                    <!--<ion-icon slot="start" name="checkmark"></ion-icon>-->
+                                    <ion-radio slot="start" type="medium" value="{{m.id.toLowerCase()}}"></ion-radio>
+                                </ion-item>
+                            </ion-col>
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>W</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio slot="end" value="w"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>P</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio slot="end" value="p"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>T</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark" ></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="t" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>G</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="g" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>J</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="j" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>R</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio slot="start" type="light" value="r"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+                        </ion-row>
+                    </ion-radio-group>
+
+                    <ion-radio-group name="priority" (value)="priority" [(ngModel)]="priority"  (ionChange)="moduleChange()">
+                        <ion-row>
+                            <ion-col>
+                                <ion-item class="">
+                                    <ion-label><i>p</i>2</ion-label>
+                                    <!--<ion-icon slot="start" name="checkmark"></ion-icon>-->
+                                    <ion-radio slot="start" value="2" checked></ion-radio>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item class="">
+                                    <ion-label>3</ion-label>
+                                    <!--<ion-icon slot="start" name="checkmark" ></ion-icon>-->
+                                    <ion-radio  slot="start" value="3" ></ion-radio>
+                                </ion-item>
+                            </ion-col>
+   <ion-col>
+                                <ion-item class="">
+                                    <ion-label>4</ion-label>
+                                    <!--<ion-icon slot="start" name="checkmark" ></ion-icon>-->
+                                    <ion-radio  slot="start" value="4"></ion-radio>
+                                </ion-item>
+                            </ion-col>
+
+</ion-row>
+                        </ion-radio-group>
+
+                            <!--</ion-list>-->
+
+
+                    <!-- -->
+                    <!--<ion-select name="module" [(ngModel)]="modulexxx" interface="popover"-->
+                    <!--mutiple="false" (value)="modulexx">-->
+                    <!--<ion-select-option value='n'>note</ion-select-option>-->
+                    <!--<ion-select-option value='j'>journal</ion-select-option>-->
+
+                    <!--<ion-select-option value='p'>plan</ion-select-option>-->
+                    <!--<ion-select-option value='t'>task</ion-select-option>-->
+                    <!--<ion-select-option value='g'>goal</ion-select-option>-->
+
+                    <!--<ion-select-option value='w'>writing</ion-select-option>-->
+                    <!--<ion-select-option value='r'>resource</ion-select-option>-->
+                    <!--<ion-select-option value='q'>payment</ion-select-option>-->
+                    <!--</ion-select>-->
+
+
+                    <!--<ion-label> pr.</ion-label>-->
+                    <!--&nbsp;-->
+                    <!--<ion-range style="margin: 0px; padding: 0px;" [(ngModel)]="priority"-->
+                               <!--(ionBlur)="saveForm()"-->
+                               <!--name="priority" pin="true" min="2" max="5" step="1" snaps="true"-->
+                               <!--ticks="true" color="secondary"></ion-range>-->
+
+                    <!--<a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" id="hideDescription"-->
+
+
+                    <!--&nbsp;-->
+
+                    <!--<ion-button style="text-transform: none; color: white;" size="normal" fill="clear"-->
+                    <!--(click)="savekNew();" >-->
+                    <!--<ion-icon style="font-size: 1em;" name="add-circle"></ion-icon>-->
+                    <!--</ion-button>-->
+
+
+
+                </div>
+
+
+                <div *ngIf="departments" style="width: 100% ;display: flex; justify-content: flex-start; align-items: flex-start">
+
+<!--<b>d</b>-->
+                    <ion-radio-group name="department" (value)="department" (ionChange)="moduleChange()" [(ngModel)]="department">
+
+
+                        <ion-row>
+
+                            <ion-col *ngFor="let d of departments">
+                                <ion-item>
+                                    <ion-label> {{d.code}}</ion-label>
+                                    <!--<ion-icon slot="start" name="checkmark"></ion-icon>-->
+                                    <ion-radio slot="start" type="medium" value="{{d.code}}"></ion-radio>
+                                </ion-item>
+                            </ion-col>
+
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>D</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio slot="end" value="d"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>Y</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark" ></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="y" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>I</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="i" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>H</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="h" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>F</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="f" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>L</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="l" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>T</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="t" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>V</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio value="v" checked></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+
+                            <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>E</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio type="light" value="e"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+  <!--<ion-col>-->
+                                <!--<ion-item>-->
+                                    <!--<ion-label>Z</ion-label>-->
+                                    <!--&lt;!&ndash;<ion-icon slot="start" name="checkmark"></ion-icon>&ndash;&gt;-->
+                                    <!--<ion-radio slot="start" type="light" value="z"></ion-radio>-->
+                                <!--</ion-item>-->
+                            <!--</ion-col>-->
+
+
+
+
+
+
+                        </ion-row>
+                    </ion-radio-group>
+
+
+                </div>
+                <div style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
+
+                    <!--<ion-label>files</ion-label>-->
+                    <!--<ion-toggle [(ngModel)]="grabAll" checked="true" name="grabAll" checked="true" value="on" color="secondary"></ion-toggle>-->
+
+
+                    <!--</div>-->
+
+                    <!--<div  style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px;">-->
+
+
+                    <!--picketOptions="{columns: ['Y', 'M', 'D', 'H', 'm']}" -->
+
+                    <!--Has files?-->
+                    <!--<ion-checkbox slot="end" value={val}  [(ngModel)]="withFolder"></ion-checkbox>-->
+                    <!--<ion-label position="floating">Title</ion-label>-->
+                    <!--(ionBlur)="saveForm()"-->
+                    <div style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
+                        <ion-input name="summaryInput" rows="2"
+                                   color="black" placeholder="Summary"
+
+                                   style="height: 50px; font-size: 1em; text-align: right !important; direction: rtl !important; background: ghostwhite"
+                                   type="text" id="summaryInput" #summaryInput
+                                   [(ngModel)]="summary"></ion-input>
+
+                        <!--&nbsp;-->
+                        <!--;document.getElementById('hideDescription').classList.add('hidden')-->
+
+
+                        <!--<ion-button outline style="text-transform: none;" size="small" id="hideDescription" fill="clear"-->
+                                    <!--onclick="if (document.getElementById('addFormDetails').classList.contains('hidden')) document.getElementById('addFormDetails').classList.remove('hidden');else document.getElementById('addFormDetails').classList.add('hidden')"-->
+                                <!-->...-->
+                        <!--</ion-button>-->
+
+                        <ion-button outline style="text-transform: none; float: right;" (click)="savekNew()" fill="clear"
+                                    color="secondary">
+                            <ion-icon style="font-size: 2em;" name="save"></ion-icon>
+
+                        </ion-button>
+
+
+                    </div>
+                    <!--expand="block"-->
+
+                    <!--<ion-label position="floating">Details</ion-label>-->
+                </div>
+                <div id="addFormDetails" class="hidden---">
+                    <ion-textarea name="description" rows="4" autosize
+                                  (ionBlur)="saveForm()" placeholder="Description"
+                                  color="black"
+                                  style="height: 80px; font-size: 1em; text-align: right !important; direction: rtl !important; background: ghostwhite;"
+                                  type="text" id="description"
+                                  [(ngModel)]="description"></ion-textarea>
+                    <div style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
+                        <ion-datetime name="date" [(ngModel)]="date" (ionBlur)="saveForm()"
+                                      displayFormat="DDD DD MMM, YY HH:mm" pickerFormat="YYYY MMM DDD HH mm"
+                                      minuteValues="0,5, 10, 15,20, 25, 30,40, 45, 50, 55"
+                                      placeholder="at current time"></ion-datetime>
+
+
+                        <ion-label>+ files</ion-label>
+                        <ion-toggle [(ngModel)]="withFolder" (ionChange)="moveFiles($event)" checked="false"
+                                    name="withFolder" value="on" color="secondary"></ion-toggle>
+
+                        <ion-label>+ all</ion-label>
+                        <ion-toggle [(ngModel)]="withScreenshot" checked="false" (ionChange)="moveFilesJob()"
+                                    name="withScreenshot" value="on" color="secondary"></ion-toggle>
+
+                    </div>
+
+
+                </div>
+
+                <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;"  -->
+                <!-- (click) = "savek();" onclick="document.getElementById('nkinput').focus()">Add</a> -->
+
+
+                <!--<ion-button outline style="text-transform: none;" size="small" fill="clear"-->
+                <!--(click)="savekWithFile();">Add and create folder</ion-button>-->
+                <!--before="if(!confirm('Are you sure you want to clear the entered notes?')) return false"-->
+
+            </form>
+
+
+            <!--files: {{files}}+-->
 
 
             <!--<div name="asdfasf"  *ngFor="let file of files2">-->
-                <!--<ion-checkbox slot="end" slot="start" value="{{file}}"-->
-                              <!--unchecked (ionChange)="pickFile($event)"></ion-checkbox>-->
-                <!--<ion-label>{{file}}</ion-label>-->
+            <!--<ion-checkbox slot="end" slot="start" value="{{file}}"-->
+            <!--unchecked (ionChange)="pickFile($event)"></ion-checkbox>-->
+            <!--<ion-label>{{file}}</ion-label>-->
             <!--</div>-->
 
-    </ion-card-content>
+        </ion-card-content>
     </ion-card>
 
-    &nbsp;
-    <div id='logAreaNotes' style="font-style: italic; font-size: small; color: darkgray"></div>
-    <div *ngIf="selectedFiles.length" id="selectedFiles">
-        {{selectedFiles.length}} chosen file(s)
-    </div>
-    <div  style="color: darkgray; text-align: right; font-size: small; padding: 0px 5px;">
-        <!--{{nklog?.split('***')?.length - 1 == -1 ? '0' :  nklog?.split('***')?.length - 1}}-->
-        {{items?.length}}
-        records,
-        {{totalNbFiles}} new files
-    </div>
+    <ion-text>
 
-    <app-nibras-list [items]="items"></app-nibras-list>
+        <span id='logAreaNotes' style="font-style: italic; font-size: normal; color: darkorange; padding-left: 15px"></span>
 
 
-        <!-- <div name="nklog" id="nklog" style='overflow: auto; line-height: 20px; direction: rtl; text-align: right; border: 1px solid darkgray'  -->
-      <!-- [innerHTML]="nklog"> -->
-      <!-- </div> -->
-        <!--<div id="newEntry" class="ar"></div>-->
+
+        <div *ngIf="selectedFiles.length" id="selectedFiles">
+            {{selectedFiles.length}} chosen file(s):
+            {{selectedFiles}}
+        </div>
+        <div style="color: darkgreen; text-align: left; font-size: large; padding-left: 15px;">
+            <!--{{nklog?.split('***')?.length - 1 == -1 ? '0' :  nklog?.split('***')?.length - 1}}-->
+            {{items?.length}}
+            records,
+            {{totalNbFiles}} new files
+        </div>
+    </ion-text>
 
 
-      <!--<div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'-->
-        <!--*ngFor="let line of nklog.split('***')">-->
-        <!--<div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">-->
-          <!--{{line?.split('::')[0].split('&#45;&#45;')[0]}}-->
-        <!--</div>-->
+    <app-plain-list [items]="items"></app-plain-list>
+
+
+    <!-- <div name="nklog" id="nklog" style='overflow: auto; line-height: 20px; direction: rtl; text-align: right; border: 1px solid darkgray'  -->
+    <!-- [innerHTML]="nklog"> -->
+    <!-- </div> -->
+    <!--<div id="newEntry" class="ar"></div>-->
+
+
+    <!--<div name="nklog" id="nklog" style='overflow: auto; line-height: 22px; direction: rtl; text-align: justified;'-->
+    <!--*ngFor="let line of nklog.split('***')">-->
+    <!--<div style="direction: ltr; text-align: left; font-size: small; color: darkgray;; font-weight: italic;">-->
+    <!--{{line?.split('::')[0].split('&#45;&#45;')[0]}}-->
+    <!--</div>-->
     <!--<div style="direction: right; text-align: right; font-size: normal; color: black;; font-weight: bold;">-->
-        <!--{{line?.split('::')[0].split('&#45;&#45;')[1]}}-->
-        <!--</div>-->
-        <!--<div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">-->
-          <!--{{line?.split('::')[1]}}-->
-        <!--</div>-->
-      <!--</div>-->
-
-
+    <!--{{line?.split('::')[0].split('&#45;&#45;')[1]}}-->
+    <!--</div>-->
+    <!--<div style="border-right: 1px lightgrey solid; padding: 2px; margin: 2px; line-height: 20px; text-align: justified; font-size: 1.1em;">-->
+    <!--{{line?.split('::')[1]}}-->
+    <!--</div>-->
+    <!--</div>-->
 
 
     <!--<ion-card class="search-card">-->
-        <!--<ion-card-header>-->
-<!---->
-            <!--<ion-card-title>-->
-                <!--Search-->
-            <!--</ion-card-title>-->
-        <!--</ion-card-header>-->
-<!---->
-        <!--<ion-card-content>-->
+    <!--<ion-card-header>-->
+    <!---->
+    <!--<ion-card-title>-->
+    <!--Search-->
+    <!--</ion-card-title>-->
+    <!--</ion-card-header>-->
+    <!---->
+    <!--<ion-card-content>-->
 
-<!--<form>-->
-            <!--<ion-input  name="searchTerm"-->
-                           <!--color="black" placeholder="Title"-->
-                           <!--style="font-size: 1em; text-align: right !important; direction: rtl !important; background: ghostwhite"-->
-                           <!--type="text" id="searchTerm"-->
-                           <!--[(ngModel)]="searchTerm"></ion-input>-->
+    <!--<form>-->
+    <!--<ion-input  name="searchTerm"-->
+    <!--color="black" placeholder="Title"-->
+    <!--style="font-size: 1em; text-align: right !important; direction: rtl !important; background: ghostwhite"-->
+    <!--type="text" id="searchTerm"-->
+    <!--[(ngModel)]="searchTerm"></ion-input>-->
     <!--<ion-button outline style="text-transform: none;" size="small" expand="block"-->
-                <!--(click)="search();">Get</ion-button>-->
-<!--</form>-->
+    <!--(click)="search();">Get</ion-button>-->
+    <!--</form>-->
 
 
+    <!--</ion-card-content>-->
+    <!---->
 
+    <!--</ion-card>-->
 
-
-        <!--</ion-card-content>-->
-<!---->
-        <!--</ion-card>-->
-
-<h4>Bookmarked records</h4>
-
-    <div class="welcome-card" *ngFor="let type of appTypes">
+    <!--<ion-card style="background: #eee">-->
         <!--img src="/assets/shapes.svg" alt="" /-->
         <!--<ion-card-header>-->
-            <!--<ion-card-title>-->
-      &nbsp;&nbsp;      <h3 style="margin-left: 2em">{{type.title}}</h3>
-                <a id="{{type.type}}"></a>
-            <!--</ion-card-title>-->
+
+        <!--<ion-card-title>Add-->
+        <!---->
+        <!--</ion-card-title>-->
         <!--</ion-card-header>-->
-        <!--<ion-card-content>-->
-        <app-nibras-list [items]="itemsMega[type.type]"></app-nibras-list>
+
+
+
+<br/>
+    <a id="browse"></a>
+    <ion-title>
+        <ion-icon name="bookmarks"></ion-icon>
+        <!--<h4>-->
+        <!---->
+        Bookmarked records
+    </ion-title>
+
+    <!--<ion-card class="welcome-card" >-->
+    <!--&lt;!&ndash;img src="/assets/shapes.svg" alt="" /&ndash;&gt;-->
+    <!--<ion-card-header>-->
+
+    <!--<ion-card-title>-->
+    <!--Tasks-->
+    <!--<a id="tasks"></a>-->
+    <!--</ion-card-title>-->
+    <!--</ion-card-header>-->
+    <!--<ion-card-content >-->
+    <!--<app-table-list [items]="itemsMega['T']"></app-table-list>-->
     <!--</ion-card-content>-->
-<!---->
     <!--</ion-card>-->
-</div>
+
+    <!--<ion-card class="welcome-card" >-->
+    <!--&lt;!&ndash;img src="/assets/shapes.svg" alt="" /&ndash;&gt;-->
+    <!--<ion-card-header>-->
+
+    <!--<ion-card-title>-->
+    <!--Goals-->
+    <!--<a id="goal"></a>-->
+    <!--</ion-card-title>-->
+    <!--</ion-card-header>-->
+    <!--<ion-card-content >-->
+    <!--<app-table-list [items]="itemsMega['G']"></app-table-list>-->
+    <!--</ion-card-content>-->
+    <!--</ion-card>-->
 
 
+    <ion-card class="welcome-card" *ngFor="let type of appTypes">
+        <!--img src="/assets/shapes.svg" alt="" /-->
+        <ion-card-header>
+            <ion-card-title>
+                <a id="{{type.type}}"></a>
+                &nbsp; <p style="margin-left: 2em">{{type.title}}</p>
 
-    <ion-card class="welcome-card">
+                <!---->
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <app-table-list [items]="itemsMega[type.type]"
+                            [covers]="covers"
+                    ></app-table-list>
+            <!---->
+        </ion-card-content>
+        <!--<app-nibras-list [items]="itemsMega[type.type]"></app-nibras-list>-->
+    </ion-card>
+
+    <!--</div>-->
+
+    <ion-card class="welcome-card" style="">
+        <!--img src="/assets/shapes.svg" alt="" /-->
+        <ion-card-header>
+
+            <ion-card-title>
+                <!--Calendar-->
+                {{currentMonth}}
+                <a id="calendar"></a>
+                <!--<br/>-->
+
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <a (click)="changeMode('month')"
+               style="margin: 3px; padding: 2px;border-radius: 5px;  border: 1px solid darkgray;">Month</a> &nbsp;
+            <a (click)="changeMode('week')"
+               style="margin: 3px;  border-radius: 5px; padding: 2px; border: 1px solid darkgray;">Week</a>&nbsp;
+            <a (click)="changeMode('day')"
+               style="margin: 3px;  padding: 2px; border-radius: 5px;  border: 1px solid darkgray;">Day</a>&nbsp;
+            <br/>
+            <br/>
+            <!--locale="en"-->
+            <calendar id="myCalendar"
+                      [calendarMode]="calendar.mode"
+                      startHour="6"
+                      endHour="20"
+                      step="30"
+                      [startingDayWeek]="calendar.startingDayWeek"
+                      [startingDayMonth]="calendar.startingDayWeek"
+                      [currentDate]="currentDate"
+                      [eventSource]="allEvents"
+                      (onTitleChanged)="onViewTitleChanged($event)">
+            </calendar>
+        </ion-card-content>
+    </ion-card>
+
+
+    <!--﻿<ion-accordion-group>-->
+
+
+    <!--<ion-accordion value="first">-->
+    <!--<ion-item slot="header" color="light">-->
+    <!--<ion-label>First Accordion</ion-label>-->
+    <!--</ion-item>-->
+    <!--<div class="ion-padding" slot="content">-->
+    <!--First Content-->
+    <!--</div>-->
+    <!--</ion-accordion>-->
+    <!-- -->
+
+    <!--</ion-accordion-group>-->
+
+
+    <ion-card class="welcome-card" style="background: #eee">
         <!--img src="/assets/shapes.svg" alt="" /-->
         <ion-card-header>
 
             <ion-card-title>
                 Sync
-         </ion-card-title>
+            </ion-card-title>
         </ion-card-header>
-        <ion-card-content >
+        <ion-card-content>
 
 
 
-        <span style="font-style: italic; font-size: small; color: darkgray">
+        <span style="font-style: italic; font-size: small; ">
           URL of Nibras <b>system</b>:
         </span>
+
             <form (ngSubmit)="saveIp2()">
                 <ion-input name="ip"
                            color="black"
+                           (ionBlur)="saveIp2()"
                            style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
-                border: 1px solid darkgrey; background: ghostwhite" placeholder="URL of Nibras system..."
+                border: 1px solid darkgray; background: ghostwhite" placeholder="URL of Nibras system..."
                            type="text" value="{{ipA}}"
                            [(ngModel)]="ipA"
                         ></ion-input>
-                <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+                <!--{{(status == 'online' ? 'darkgreen': 'darkgray')}}-->
+                <!--todo: fix border green-->
+
+                <div class="{{status}}"  style="float: right">
+                    {{status}}
+                </div>
+
+
             </form>
-  <span style="font-style: italic; font-size: small; color: darkgray">
-          URL of Nibras <b>repository</b>:
+  <span style="font-style: italic; font-size: small; ">
+          URL of Nibras <b>repository</b>
         </span>
+
             <form (ngSubmit)="saveIpRepo()">
+
+                <!--class="repo{{repoStatus}}"-->
+
+                <ion-input name="ipRepo"
+                           (ionBlur)="saveIpRepo()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;  border: 1px solid darkgray; background: ghostwhite; " placeholder="URL of Nibras repository..."
+                           type="text" value="{{ipRepo}}"
+                           [(ngModel)]="ipRepo"></ion-input>
+
+                <div class="repo{{status}}" style="float: right">
+                    {{repoStatus}}
+                </div>
+                <!-- <a  style="display: inline; font-size: small; padding
+                : 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+            </form>
+ <span style="font-style: italic; font-size: small;">
+          Allowed extensions to download:
+        </span>
+
+            <form (ngSubmit)="saveAllowedExtensions()">
                 <ion-input name="ipRepo"
                            color="black"
+                           (ionBlur)="saveAllowedExtensions()"
                            style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
-                border: 1px solid darkgrey; background: ghostwhite" placeholder="URL of Nibras repository..."
-                           type="text" value="{{ipRepo}}"
-                           [(ngModel)]="ipRepo"
+                border: 1px solid darkgrey; background: ghostwhite" placeholder="Extensions..."
+                           type="text" value="{{allowedExtensions}}"
+                           [(ngModel)]="allowedExtensions"
+                        ></ion-input>
+                <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
+            </form>
+
+  <span style="font-style: italic; font-size: small;">
+          Username {{username}}:
+        </span>
+
+            <form (ngSubmit)="saveUsername()">
+                <ion-input name="username"
+                           color="black"
+                           (ionBlur)="saveUsername()"
+                           style="font-size: small; display: inline-block; direction: ltr; text-align: left; padding: 1px;
+                border: 1px solid darkgrey; background: ghostwhite" placeholder="Username..."
+                           type="text" value="{{username}}"
+                           [(ngModel)]="username"
                         ></ion-input>
                 <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;" (click) = "savek();" onclick="document.getElementById('nkinput').focus()">+++++++++++++++++++++++++++++++</a> -->
             </form>
@@ -302,30 +799,103 @@
             <!--<div id='logAreaSettings' style="font-style: italic; font-size: small; padding: 10px 2px; text-align: right; display: inline; color: darkgray">-->
             <!--</div>-->
 
-            &nbsp;&nbsp;&nbsp; <div id='connectionLog' style="font-style: italic; font-size: small; color: darkgray"></div>
+            &nbsp;&nbsp;&nbsp;
+
+            <div id='connectionLog' style="font-style: italic; font-size: small; color: darkorange"></div>
 
 
-            <ion-button outline style="text-transform: none; " size="small" (click)="refresh()" fill="clear">Check</ion-button>
-            <ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncData()" fill="clear">Sync</ion-button>
-            <ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncFiles()" fill="clear">Files</ion-button>
+            <div id='connectionFileResultLog'
+                 style="font-style: italic; font-size: small; color: darkorange; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+            <div id='connectionFileLog'
+                 style="font-style: italic; font-size: small; color: darkorange; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+
+            <!--{{progress}} progress.-->
+            <br/>
+            <a id='connectionLogEnd'></a>
+
+            <a id="sync"></a>
+
+
+            {{filesToDownload.length}} files to check.
+
+            {{filesProcessed}} checked.
+
+            <ion-progress-bar [value]="progress"></ion-progress-bar>
+
+
+            <ion-button outline style="text-transform: none; " (click)="syncDone()" fill="clear" color="secondary">
+                <ion-icon style="font-size: 2em;" name="sync"></ion-icon> <b>Sync</b>
+            </ion-button>
+            <!--<ion-button outline style="text-transform: none; " (click)="syncData()" fill="clear" color="secondary">-->
+                 <!--data-->
+            <!--</ion-button>-->
+
+
+            <!--[disabled]="repoStatus == 'offline'"-->
+            <!--<ion-button outline style="text-transform: none; "  (click)="syncFiles()" fill="clear" color="secondary">-->
+                <!--files-->
+            <!--</ion-button>-->
+<!---->
+            <!--<br/>-->
+            <ion-button (click)="clearLog();" size="small" style="text-transform: none;" fill="clear">
+                Clear log
+            </ion-button>
+
+
+            <!--ids: {{ids.length}}-->
+
+            <!--<ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncData()" fill="clear">Sync</ion-button>-->
+            <!--<ion-button outline style="text-transform: none; " size="small" [disabled]="isOffline" (click)="syncFiles()" fill="clear">Files</ion-button>-->
 
             <!--<br/>-->
             <!--<ion-button outline [disabled]="isOffline" style=" padding: 1px;text-transform: none;" fill="clear"-->
-                        <!--(click)="syncWritingsNew();"  size="small">Move</ion-button>-->
-<!---->
-            <ion-button (click)="clearSync();" size="small" style="text-transform: none;" fill="clear">
-                Clear all notes</ion-button>
+            <!--(click)="syncWritingsNew();"  size="small">Move</ion-button>-->
+            <!---->
+
+
+            <!--&nbsp;&nbsp;&nbsp;<div id='logArea' style="font-style: italic; font-size: small; margin: 10px 2px; text-align: right; display: inline; color: darkgray">-->
+            <!--</div>-->
+            <!--<br/>-->
 
             <br/>
 
+            <ion-label>Collect files</ion-label>
+            <ion-toggle [(ngModel)]="collectFiles" (ionChange)="enableCollectFiles($event); moveFilesJob()"
+                        checked="false" name="collectFiles" value="off" color="secondary">
+            </ion-toggle>
 
-            <ion-button  href="/home" size="small" style="text-transform: none;" fill="clear">
-                Reload</ion-button>
-
-            <!--&nbsp;&nbsp;&nbsp;<div id='logArea' style="font-style: italic; font-size: small; margin: 10px 2px; text-align: right; display: inline; color: darkgray">-->
-        <!--</div>-->
+            <!--<ion-button  (click)="enableCollectFiles($event); moveFilesJob()" size="small" style="text-transform: none;" fill="clear">-->
+            <!--Collect files</ion-button>-->
 
 
+            <!--<ion-label>Actual delete</ion-label>-->
+            <!--<ion-toggle [(ngModel)]="physicalDelete" (ionChange)="enablePhysicalDelete($event)" checked="false"-->
+                        <!--name="physicalDelete" value="off" color="secondary">-->
+
+            <!--</ion-toggle>-->
+            <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+
+            <ion-button href="/home" size="small" style="text-transform: none;" fill="clear">
+                Reload
+            </ion-button>
+            <br/>
+            <br/>
+
+            <ion-button (click)="clearSync();" size="smaller" style="text-transform: none;" fill="clear">
+                Clear records
+            </ion-button>
+
+
+            <ion-button (click)="clearFiles();" size="xsmall" style="text-transform: none;" fill="clear">
+                Clear files
+            </ion-button>
+
+
+
+            <!--D{{resourceNestedById}}D-->
+
+
+            <!--T{{resourceNestedByType}}T-->
 
 
             <!-- <b>Nibras PKM address:</b> -->
@@ -340,7 +910,6 @@
             <!-- App-name is "nibras" by default. -->
         </ion-card-content>
     </ion-card>
-
 
 
 </ion-content>

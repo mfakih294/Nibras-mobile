@@ -5,6 +5,7 @@
     </ion-buttons>
     <ion-title>
       Notes
+      ({{items.length}})
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -23,6 +24,7 @@
 
   
 
+<app-table-list [items]="items"></app-table-list>
 <app-nibras-list [items]="items"></app-nibras-list>
 
   

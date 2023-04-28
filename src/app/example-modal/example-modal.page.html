@@ -1,36 +1,75 @@
 <ion-header>
+
+   <!-- -->
+
     <ion-toolbar style="direction: rtl; text-align: right">
-        <ion-title
-                style="direction: rtl; text-align: right; word-wrap: break-word !important; overflow-wrap: break-word;">
-            <!--{{summary}}-->
-        </ion-title>
+    <ion-title
+            style="direction: rtl; text-align: right; word-wrap: break-word !important; overflow-wrap: break-word;">
+        <!--{{summary}}-->
+    </ion-title>
 
-        <ion-button outline style="text-transform: none;" (click)="closeModal()">Close</ion-button>
-        <ion-button outline style="text-transform: none;" (click)="copyText(summary, description)">Copy</ion-button>
+    <ion-button outline style="text-transform: none;" (click)="closeModal()" title="Close">
 
-        <div *ngIf="ecode == 'o'" style="display: inline;">
-        <ion-button outline style="text-transform: none;" (click)="showEditForm(ecode, id)">Edit</ion-button>
-        <ion-button outline style="text-transform: none;" (click)="deleteRecord(ecode, id)">Delete</ion-button>
-            </div>
+        <ion-icon style="font-size: 1em;" name="close"></ion-icon>
 
-    </ion-toolbar>
+    </ion-button>
+
+        <span id="copyLog">
+        <ion-button outline style="text-transform: none;" (click)="copyText(summary, description)" title="Copy to clipboard">
+
+            <ion-icon style="font-size: 1em;" name="copy"></ion-icon>
+
+
+        </ion-button>
+            </span>
+
+    <div *ngIf="ecode == 'o'" style="display: inline;">
+        <!--<br/>-->
+        <ion-button outline style="text-transform: none;" (click)="showEditForm(ecode, id)" title="Edit">
+
+            <ion-icon style="font-size: 1em;" name="create"></ion-icon>
+
+
+        </ion-button>
+            <span id="deleteLog">
+        <ion-button outline style="text-transform: none;" (click)="deleteRecord(ecode, id)" title="Delete record">
+
+            <ion-icon style="font-size: 1em;" name="trash"></ion-icon>
+
+
+        </ion-button>
+                </span>
+
+    </div>
+
+    <ion-button outline style="text-transform: none;" (click)="increaseFont()" title="Increase font size">
+
+        <ion-icon style="font-size: 1em;" name="trending-up"></ion-icon>
+
+        </ion-button>
+    <ion-button outline style="text-transform: none;" (click)="decreaseFont()" title="Decrease font size">
+        <ion-icon style="font-size: 1em;" name="trending-down"></ion-icon>
+
+    </ion-button>
+
+</ion-toolbar>
 </ion-header>
 
+<!--[fullscreen]="false" class="ion-padding"-->
 <ion-content>
 
     <ion-card class="{{language}}">
         <ion-card-header>
             <ion-card-subtitle class="{{language}}">
                 <!-- <input type="checkbox" id="{{type + '' + id + 'checkbox'}}" (change)="markDone(type, id)" /> -->
-        <span id="copyLog">
-        </span>
+
             </ion-card-subtitle>
             <!--&lt;!&ndash; <ion-card-title style="direction: rtl; text-align: right; word-wrap: break-word !important; overflow-wrap: break-word;">-->
 
             <!--</ion-card-title>-->
         </ion-card-header>
 
-        <ion-card-content class="{{language}}" >
+        <ion-card-content class="{{language}}" [style.font-size]="fontSize + 'rem'" >
 
             <div id="log{{ecode}}{{id}}"></div>
             <span id="{{ecode + id + 'log'}}"></span>
@@ -40,15 +79,12 @@
 
 
             <div id="edit{{ecode + '' + id}}" class="hidden">
-                <h1>Edit record</h1>
+                <!--<h1>Edit record</h1>-->
 
 
-                <ion-button outline style="text-transform: none;" size="small" expand="block"
-                            (click)="updateRecord();">Update
-                </ion-button>
+                <div style="width: 100% ;display: block; direction: ltr; text-align: left; justify-content: space-between; align-items: left;">
 
-                <div style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
-
+                    <ion-label>Type</ion-label>:
                     <ion-select name="rtype" interface="popover" [(ngModel)]="module"
                                 mutiple="false">
                         <ion-select-option value='n'>note</ion-select-option>
@@ -64,6 +100,7 @@
                     </ion-select>
                 </div>
                 <div style="width: 100% ;display: flex; justify-content: space-between; align-items: center">
+                    <ion-label>Date</ion-label>:
                     <ion-datetime name="nkd" [(ngModel)]="date"
                                   displayFormat="DDD DD MMM, YY HH:mm" pickerFormat="YYYY MMM DDD HH mm"
                                   minuteValues="0,15,30,45"
@@ -72,7 +109,7 @@
                     <!--</div>-->
                     <!--<div  style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px;">-->
 
-                    <ion-label>pr.</ion-label>
+                    <ion-label>Priority</ion-label>
                     <ion-range style="margin: 0px; padding: 0px;" [(ngModel)]="priority"
                                name="priority" pin="true" min="2" max="5" step="1" snaps="true"
                                ticks="true" color="secondary"></ion-range>
@@ -82,6 +119,7 @@
                 <!--Has files?-->
                 <!--<ion-checkbox slot="end" value={val}  [(ngModel)]="withFolder"></ion-checkbox>-->
                 <!--<ion-label position="floating">Title</ion-label>-->
+                <ion-label>Summary</ion-label>:
                 <ion-textarea name="summary" autofocus="true" rows="2"
                               color="black" placeholder="Summary"
                               style="font-size: 1.1em; text-align: right !important; direction: rtl !important; background: ghostwhite"
@@ -89,7 +127,8 @@
                               type="text" id="summary"></ion-textarea>
 
                 <!--<ion-label position="floating">Details</ion-label>-->
-                <ion-textarea name="description" rows="5" autosize
+                <ion-label>Description / full text</ion-label>:
+                <ion-textarea name="description" rows="10" autosize
                               placeholder="Description"
                               color="black"
                               style="height: 100px; font-size: 1em; display: inline-block; text-align: right !important; direction: rtl !important; background: ghostwhite"
@@ -97,6 +136,9 @@
                               type="text" id="description"></ion-textarea>
 
                 <br/>
+                <ion-button outline style="text-transform: none;" size="small" expand="block"
+                            (click)="updateRecord();">Update
+                </ion-button>
 
                 <!-- <a  style="display: inline; font-size: small; padding: 0px; margin: 0px;"  -->
                 <!-- (click) = "savek();" onclick="document.getElementById('nkinput').focus()">Add</a> -->
@@ -104,14 +146,44 @@
 
             </div>
 
-            <h3> {{summary}}</h3>
+            <h3  [style.font-size]="fontSize * 1.2 + 'rem'"> {{summary}}</h3>
+
+
+            <div *ngIf="ecode != 'o'">
+                <div *ngIf="filesList" id="{{ecode + '' + id}}filesTr"
+                     style="width: 99% !important; direction: ltr; text-align: left; columns-count: 3;">
+
+
+                    <ion-button *ngFor="let file of filesList.split('\n')"
+                                (click)="openRFile(ecode, '', id, file.split('|')[0])"
+                                size="small" style="overflow-wrap: break-word !important; text-transform: none;" fill="clear">
+                        <!--style="border: gainsboro solid; border-radius: 5px; padding: 3px; margin: 4px; display: block"-->
+                        {{file.split('|')[0]}}
+                        <!--{{file?.split('.')[0]}}                    -->
+                    </ion-button>
+
+                    <!--<ion-button *ngFor="let file of item.filesList.split('\n')" outline style=" padding: 1px;text-transform: none;" fill="outline"-->
+                    <!--(click)="openRFile(item.ecode, '', item.id, file)" size="small">-->
+                    <!--<ion-icon slot="start" name="download-outline"></ion-icon>-->
+                    <!--<ion-label>-->
+                    <!--{{file}}-->
+                    <!--</ion-label>-->
+                    <!--</ion-button>-->
+
+                </div>
+            </div>
+
+
 
             <div style="border-right: 1px solid darkgreen; padding: 8px; margin: 1px; font-size: 0.9em" [innerHTML]="description"></div>
+            <!--replace(/\n/g, '<br/>')-->
+            <!--replaceAll('\n', '<br/>')-->
 
 
 
 
-            <div style="border-left: 1px solid darkgeen; direction: ltr; text-align: left">
+
+            <div style="border-left: 1px solid darkgreen; padding-left: 20px; direction: ltr; text-align: left">
 <ul *ngIf="filesList">
     {{nbFiles}} files
     <br/>
@@ -121,9 +193,10 @@
            ***<!--</li>-->
 </ul>
 
-                <h4>Date:</h4>
+                <b>Date:</b>
                 {{textDate}}
-                <h4>Id:</h4>
+                <br/>
+                <b>Id:</b>
                 {{operationId}}
 
 
@@ -131,18 +204,22 @@
             </div>
 
 
+<br/>
 
+            <!--Appends: ={{appends}}=-->
 
 
             <div *ngIf="ecode != 'o'" style="display: inline;">
 
 
+
+<h4>Append notes</h4>
             <form (ngSubmit)="appendNote(ecode, id)">
 
-          <ion-textarea name="textToAppend"  autofocus="true" color="light" rows="3"
+          <ion-textarea name="textToAppend"  autofocus="true" color="light" rows="2"
            style="display: inline-block; direction: rtl; text-align: right;
-            border: 1px lightgrey; background: lightblue"  [(ngModel)]="textToAppend"
-          placeholder="Append note..."  type="text" id="textToAppend"></ion-textarea>
+            border: 1px darkgreen; background: #d0e6cc"  [(ngModel)]="textToAppend"
+          placeholder="..."  type="text" id="textToAppend"></ion-textarea>
         </form>
                 </div>
 
