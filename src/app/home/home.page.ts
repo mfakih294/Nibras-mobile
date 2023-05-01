@@ -839,7 +839,7 @@ refresh(){
     if (this.ipRepo.indexOf(':') != -1)
         subPart = this.ipA
     else
-        subPart = this.ipA + ':1445/nibras/'
+        subPart = this.ipA + ':1441/nibras/'
 
 
     this.storage.get('ipA').then((val) => {
@@ -1311,6 +1311,9 @@ this.changeRef.detectChanges()
                      //err.message;
                      //console.error( err);
                      console.log('Error creating the file', filename);
+                     let file = this.filesToDownload.pop()
+                     this.download(file[0],file[1],file[2],file[3],file[4],file[5])
+
                  })
              }
          );
@@ -1321,7 +1324,10 @@ this.changeRef.detectChanges()
          document.getElementById('connectionLog').innerHTML  += 'Error creating the file: ' + filename;//err.message;
          //console.error( err);
          console.log('Error creating the file', filename);
-     })
+                    let file = this.filesToDownload.pop()
+                    this.download(file[0],file[1],file[2],file[3],file[4],file[5])
+
+                })
 
 
      })
@@ -2457,7 +2463,7 @@ saveForm(){
                     if (this.ipA.indexOf(':') != -1)
                         subPart = this.ipA
                     else
-                        subPart = this.ipA + ':1445/nibras/'
+                        subPart = this.ipA + ':1441/nibras/'
 
                     var link = "https://" + subPart + "/sync/mobilePushSplit"
 
@@ -2718,7 +2724,7 @@ async syncWritingsNew()
             if (this.ipA.indexOf(':') != -1)
                 subPart = this.ipA
             else
-                subPart = this.ipA + ':1445/nibras/'
+                subPart = this.ipA + ':1441/nibras/'
 
 
 
@@ -2918,7 +2924,7 @@ syncData()
         if (this.ipRepo.indexOf(':') != -1)
             subPart = this.ipRepo
         else
-            subPart = this.ipRepo + ':1445/nibras/'
+            subPart = this.ipRepo + ':1441/nibras/'
 
 
         var link = "https://" + subPart + "/page/heartbeatJson"
@@ -3061,7 +3067,7 @@ syncData()
       if (this.ipA.indexOf(':') != -1)
           subPart = this.ipA
       else
-          subPart = this.ipA + ':1445/nibras/'
+          subPart = this.ipA + ':1441/nibras/'
 
 
       this.http.get("https://" + subPart + "/sync/exportJson" + type + '/?id=' + this.username).subscribe(response => {
@@ -3622,7 +3628,7 @@ this.searchTerm = term
         if (this.ipRepo.indexOf(':') != -1)
             subPart = this.ipRepo
         else
-            subPart = this.ipRepo + ':1445/nibras/'
+            subPart = this.ipRepo + ':1441/nibras/'
 
 
         var link = "https://" + subPart + "/sync/departments"
@@ -3644,7 +3650,7 @@ this.searchTerm = term
         if (this.ipRepo.indexOf(':') != -1)
             subPart = this.ipRepo
         else
-            subPart = this.ipRepo + ':1445/nibras/'
+            subPart = this.ipRepo + ':1441/nibras/'
 
 
         var  link = "https://" + subPart + "/sync/types"

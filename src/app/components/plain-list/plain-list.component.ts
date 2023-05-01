@@ -669,7 +669,7 @@ console.log('ext is', ext.get(name.split('.')[1]))
             if (this.ipA.indexOf(':') != -1)
                 subPart = this.ipA
             else
-                subPart = this.ipA + ':1445/nibras/'
+                subPart = this.ipA + ':1441/nibras/'
 
 
 
