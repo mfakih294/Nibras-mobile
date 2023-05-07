@@ -810,6 +810,10 @@ Last synced: {{lastSyncDate}} <span style="color: darkgreen">({{lastSyncDiff}})<
                  style="font-style: italic; font-size: small; color: darkorange; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
             <div id='connectionFileLog'
                  style="font-style: italic; font-size: small; color: darkorange; word-wrap: break-word; overflow-wrap: break-word !important;"></div>
+            <ion-button (click)="clearLog();" size="small" style="text-transform: none; float: right" fill="clear">
+                <ion-icon style="font-size: 1.7em;" name="remove-circle-outline"></ion-icon> Clear log
+            </ion-button>
+
 
             <!--{{progress}} progress.-->
             <br/>
@@ -839,9 +843,6 @@ Last synced: {{lastSyncDate}} <span style="color: darkgreen">({{lastSyncDiff}})<
             <!--</ion-button>-->
 <!---->
             <!--<br/>-->
-            <ion-button (click)="clearLog();" size="small" style="text-transform: none;" fill="clear">
-                Clear log
-            </ion-button>
 
 
             <!--ids: {{ids.length}}-->
@@ -858,12 +859,27 @@ Last synced: {{lastSyncDate}} <span style="color: darkgreen">({{lastSyncDiff}})<
             <!--&nbsp;&nbsp;&nbsp;<div id='logArea' style="font-style: italic; font-size: small; margin: 10px 2px; text-align: right; display: inline; color: darkgray">-->
             <!--</div>-->
             <!--<br/>-->
+            <ion-button href="/home" size="small" style="text-transform: none;" fill="clear">
+                <ion-icon style="font-size: 1.7em;" name="refresh"></ion-icon>
+                Reload
+            </ion-button>
 
             <br/>
 
-            <ion-label>Collect files</ion-label>
+            <ion-label>
+                <ion-icon style="font-size: 1.7em;" name="folder-open"></ion-icon>
+                Collect files</ion-label>
             <ion-toggle [(ngModel)]="collectFiles" (ionChange)="enableCollectFiles($event); moveFilesJob()"
                         checked="false" name="collectFiles" value="off" color="secondary">
+            </ion-toggle>
+
+            <br/>
+
+            <ion-label>
+                <ion-icon style="font-size: 1.7em;" name="undo"></ion-icon>
+                Refocus on input after record saving</ion-label>
+            <ion-toggle [(ngModel)]="refocus" (ionChange)="enableRefocus($event);"
+                        checked="false" name="refocus" value="off" color="secondary">
             </ion-toggle>
 
             <!--<ion-button  (click)="enableCollectFiles($event); moveFilesJob()" size="small" style="text-transform: none;" fill="clear">-->
@@ -877,19 +893,16 @@ Last synced: {{lastSyncDate}} <span style="color: darkgreen">({{lastSyncDiff}})<
             <!--</ion-toggle>-->
             <!--&lt;!&ndash;<br/>&ndash;&gt;-->
 
-            <ion-button href="/home" size="small" style="text-transform: none;" fill="clear">
-                Reload
-            </ion-button>
-            <br/>
+             <br/>
             <br/>
 
             <ion-button (click)="clearSync();" size="smaller" style="text-transform: none;" fill="clear">
-                Clear records
+                <ion-icon style="font-size: 1.7em;" name="refresh-circle"></ion-icon> Clear records
             </ion-button>
 
 
             <ion-button (click)="clearFiles();" size="xsmall" style="text-transform: none;" fill="clear">
-                Clear files
+                <ion-icon style="font-size: 1.7em;" name="trash"></ion-icon> Clear files
             </ion-button>
 
 

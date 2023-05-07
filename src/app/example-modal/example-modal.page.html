@@ -154,13 +154,13 @@
                      style="width: 99% !important; direction: ltr; text-align: left; columns-count: 3;">
 
 
-                    <ion-button *ngFor="let file of filesList.split('\n')"
+                    <a *ngFor="let file of filesList.split('\n')"
                                 (click)="openRFile(ecode, '', id, file.split('|')[0])"
                                 size="small" style="overflow-wrap: break-word !important; text-transform: none;" fill="clear">
                         <!--style="border: gainsboro solid; border-radius: 5px; padding: 3px; margin: 4px; display: block"-->
                         {{file.split('|')[0]}}
                         <!--{{file?.split('.')[0]}}                    -->
-                    </ion-button>
+                    </a>
 
                     <!--<ion-button *ngFor="let file of item.filesList.split('\n')" outline style=" padding: 1px;text-transform: none;" fill="outline"-->
                     <!--(click)="openRFile(item.ecode, '', item.id, file)" size="small">-->

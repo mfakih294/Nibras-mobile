@@ -73,6 +73,7 @@ export class HomePage {
 
     physicalDelete = false
     collectFiles = false
+    refocus = false
 
 
     resourceNestedById = false
@@ -508,7 +509,7 @@ public platform: Platform,
 
 this.appTypes.forEach((t) =>{
     this.storage.get('mytext' + t.type).then((val) => {
-        this.itemsMega[t.type] = val.sort( (a,b) => (a.id < b.id) ? 1 : -1);
+        this.itemsMega[t.type] = val//.sort( (a,b) => (a.id < b.id) ? 1 : -1);
     });
 });
 
@@ -620,7 +621,7 @@ this.updateDepartments()
   this.updateTypes()
 
 
-  this.summaryInput.setFocus()
+  // this.summaryInput.setFocus()
 
 
 
@@ -751,10 +752,13 @@ this.updateDepartments()
 
     moduleChange(){
 
-let name = this.modules.filter(rows => rows.id == this.module.toUpperCase())[0].name.toLowerCase();
+        let name = this.modules.filter(rows => rows.id == this.module.toUpperCase())[0].name.toLowerCase();
 
         document.getElementById('addOperation').innerHTML = '<span style="color: black">' + '</span>Add <span style="color: darkgreen; font-weight: bold;">' + name + '</span> with priority <span style="color: darkgreen; font-weight: bold;">' + this.priority  + '</span>' + (this.department ? ' and department <span style="color: darkgreen; font-weight: bold;">' + this.department.toUpperCase() +'</span>': '');
+        console.log('in module change')
         this.summaryInput.setFocus();
+
+
     }
 
     rebuildItems(){
@@ -1092,7 +1096,7 @@ refresh(){
         let file = this.filesToDownload.pop()
         //console.log('files to download 2' , this.filesToDownload)
         //console.log('Current file', file)
-        document.getElementById('connectionLog').innerHTML += ('<br/>Downloading start...<br/>');
+        document.getElementById('connectionLog').innerHTML += ('<br/>Downloading started...<br/>');
         this.download(file[0],file[1],file[2],file[3],file[4],file[5])
         //this.filesProcessed++
         //this.progress = this.filesProcessed * 100 / this.filesToDownload.length
@@ -1207,7 +1211,8 @@ this.changeRef.detectChanges()
                                              httpResponse => {
                                              console.log("Dowloaded successfully ", filename)
                                              document.getElementById('connectionFileResultLog').innerHTML += '<br/><span style="color: darkgreen">' + 'Downloaded: </span>' + filename + '.<br/>';
-                                                 document.getElementById('connectionFileResultLog').scrollIntoView({behavior: 'smooth'});
+                                                 //document.getElementById('connectionFileResultLog').scrollIntoView({behavior: 'smooth'});
+                                                 document.getElementById('connectionLogEnd').scrollIntoView();
 
 
                                                  let file = this.filesToDownload.pop()
@@ -1605,7 +1610,6 @@ saveIpRepo(){
     savekNew(){
 
 
-
         if (!this.summary && !this.description){
             document.getElementById('logAreaNotes').innerHTML = 'No contents to add';
 
@@ -1646,7 +1650,7 @@ saveIpRepo(){
                 id: operationId,
                 operationId: operationId,
                 ecode: 'o',
-                module: this.module,
+                module: this.module ? this.module : 'n',
                 department: this.department,
                 rtype: this.module == 'r' ? 'doc' : '',
                 //meta: this.priority ? this.priority : 2,
@@ -1746,8 +1750,11 @@ saveIpRepo(){
                 }, 1000);
 
                 setTimeout(() => {
-                     this.summaryInput.setFocus();
-                }, 2000);
+                    if (this.refocus) {
+                        this.summaryInput.setFocus();
+                        console.log('Refocus is enabled')
+                    }
+                }, 1000);
             });
 
             let summaryTemp = this.summary
@@ -2220,6 +2227,18 @@ current_datetime.getHours().toString().padStart(2, '0') + "" + current_datetime.
         }
 
     }
+     enableRefocus(option){
+
+        if (option && option.target.checked) {
+            this.refocus = true
+            document.getElementById('connectionLog').innerHTML += ('<br/>Refocus enabled...<br/>');
+        }
+        else if (option && !option.target.checked) {
+            document.getElementById('connectionLog').innerHTML += ('<br/>Refocus disabled...<br/>');
+            this.refocus = false
+        }
+
+    }
     moveFilesJob() {
 
         if (this.collectFiles) {
@@ -2260,7 +2279,8 @@ current_datetime.getHours().toString().padStart(2, '0') + "" + current_datetime.
                                         //console.log('moved file: ', f.name);
 
                                             document.getElementById('connectionFileResultLog').innerHTML += '<br/><span style="color: darkgreen">' + 'Moved: </span>' + f.name + '.<br/>';
-                                            document.getElementById('connectionFileResultLog').scrollIntoView({behavior: 'smooth'});
+                                            document.getElementById('connectionLogEnd').scrollIntoView();
+
                                         //document.getElementById('logAreaNotes').innerHTML = 'Moved file: ' + f.name
                                         //document.getElementById('logAreaNotes').insertAdjacentHTML('beforeend', 'Found: ' + f.name + '<br/>');
                                     },
@@ -2921,10 +2941,10 @@ syncData()
    // this.ipA = val
 
         var subPart
-        if (this.ipRepo.indexOf(':') != -1)
-            subPart = this.ipRepo
+        if (this.ipA.indexOf(':') != -1)
+            subPart = this.ipA
         else
-            subPart = this.ipRepo + ':1441/nibras/'
+            subPart = this.ipA + ':1441/nibras/'
 
 
         var link = "https://" + subPart + "/page/heartbeatJson"
@@ -2970,11 +2990,7 @@ syncData()
               if (this.platform.is('android')) {
 
                   this.syncFiles();//.loadEvents();
-
-
                   //this.moveFilesJob();
-
-
                   this.changeRef.detectChanges();
               }
           }, 7000);
@@ -3072,7 +3088,8 @@ syncData()
 
       this.http.get("https://" + subPart + "/sync/exportJson" + type + '/?id=' + this.username).subscribe(response => {
   let t = type;
-this.storage.set('mytext' + t, response['data'].sort( (a,b) => (a.id < b.id) ? 1 : -1));
+this.storage.set('mytext' + t, response['data']);
+          // .sort( (a,b) => (a.id < b.id) ? 1 : -1)
 
 // document.getElementById('menuItem' + t).innerHTML =   label + ' (' +  response['data'].length + ')'
 
@@ -3394,11 +3411,10 @@ search(term){
 this.searchTerm = term
 
 //console.log('in search')
-//console.log('in search term ', this.searchTerm)
+console.log('in search term ', this.searchTerm)
 
     if (this.searchTerm.trim() == '' || !this.searchTerm)
     {
-
         this.searchItems = []
         //document.getElementById('searchLog').innerHTML  = 'No search term entered'
     }
@@ -3412,22 +3428,28 @@ this.searchTerm = term
             //console.log('inside for each, found', key);
             //console.log('class of title ', value.title.includes(this.searchTerm), value.title);
 
-            if (key.startsWith('r-') && value.summary.includes(this.searchTerm)) {
-                //console.log('found title!!!!!!!!!! class ', value.summary);
+            if (key.startsWith('r-') && (value.summary.toLowerCase().includes(this.searchTerm) || value.description.toLowerCase().includes(this.searchTerm))) {
+                console.log('found title!!!!!!!!!! class ', value.summary);
                 this.searchItems.push(value);
             }
 
             if (key.startsWith('mytext')) {
-                //console.log('now in text ', key)
+                console.log('now in text ', key)
                 for (var e of value) {
-                    //console.log('now in record ', e.summary)
-                    if (e.summary.includes(this.searchTerm)) {
+                    console.log('now in record ', e.summary)
+                    if (e.summary.toLowerCase().includes(this.searchTerm) || e.description.toLowerCase().includes(this.searchTerm)) {
                         this.searchItems.push(e);
                     }
                 }
             }
 
-            document.getElementById('searchLog').innerHTML  =   this.searchItems.length + ' results found for "' + this.searchTerm + '".'
+
+            setTimeout(() =>  {
+                document.getElementById('searchLog').innerHTML  =   this.searchItems.length + ' results found for "' + this.searchTerm + '".'
+            }, 500);
+
+
+
 
             //console.log('found key ', key);
         })
@@ -3625,10 +3647,10 @@ this.searchTerm = term
 
     updateDepartments(){
         var subPart
-        if (this.ipRepo.indexOf(':') != -1)
-            subPart = this.ipRepo
+        if (this.ipA.indexOf(':') != -1)
+            subPart = this.ipA
         else
-            subPart = this.ipRepo + ':1441/nibras/'
+            subPart = this.ipA + ':1441/nibras/'
 
 
         var link = "https://" + subPart + "/sync/departments"
@@ -3647,10 +3669,10 @@ this.searchTerm = term
     updateTypes(){
 
         var subPart
-        if (this.ipRepo.indexOf(':') != -1)
-            subPart = this.ipRepo
+        if (this.ipA.indexOf(':') != -1)
+            subPart = this.ipA
         else
-            subPart = this.ipRepo + ':1441/nibras/'
+            subPart = this.ipA + ':1441/nibras/'
 
 
         var  link = "https://" + subPart + "/sync/types"
